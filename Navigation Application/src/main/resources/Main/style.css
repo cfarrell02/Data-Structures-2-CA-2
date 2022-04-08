@@ -1,0 +1,113 @@
+.root,.split-pane{
+    -fx-background-color: #696969;
+    -fx-background-size: cover;
+    -fx-border-color: black;
+}
+.tab-pane .tab-header-background {
+    -fx-background-color: #3b3b3b;
+    -fx-background-size: cover;
+}
+.tab-pane .tab{
+    -fx-text-fill: #d4d4d4;
+    -fx-font-weight: bold;
+    -fx-background-color: #808080;
+}
+.tab-pane .tab:selected{
+    -fx-text-fill: #2d2d2d;
+    -fx-background-color: #d5d5d5;
+}
+
+.list-cell{
+    -fx-text-fill: #d4d4d4;
+}
+.choice-box .label {
+    -fx-text-fill: black;
+}
+.choice-box{
+    -fx-background-color: #afafaf;
+}
+
+.choice-box:hover{
+    -fx-background-color: #cbcbcb;
+}
+
+.list-view{
+    -fx-border-color: #4a4a4a;
+    -fx-background-color: #595959;
+}
+.label, .radio-button{
+    -fx-text-fill: #d4d4d4;
+}
+.list-cell:odd {
+    -fx-background-color: #696969;
+}
+
+.list-cell:even {
+    -fx-background-color: #4a4a4a;
+}
+.list-cell:selected{
+    -fx-text-fill: #3d3d3d;
+    -fx-background-color: #d4d4d4;
+}
+.button {
+    -fx-text-fill: #d4d4d4;
+    -fx-font-weight: bold;
+    -fx-background-color: #808080;
+}
+
+.menu-bar{
+    -fx-background-color: #3d3d3d;
+}
+.menu{
+    -fx-background-color: #3d3d3d;
+
+}
+.menu:hover{
+    -fx-background-color: darkgray;
+
+}
+
+.menu .label{
+    -fx-fill:  #d4d4d4;
+    -fx-text-fill: #d4d4d4;
+}
+
+.context-menu {
+    -fx-background-color: #3d3d3d;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+.menu-item .label {
+    -fx-text-fill: #d4d4d4;
+}
+
+.menu-item:focused {
+    -fx-background-color: darkgray;
+}
+
+.button:hover{
+    -fx-background-color: #afafaf;
+    -fx-text-fill: #2a2a2a;
+}
+.button:selected{
+    -fx-background-color: #1e1e1e;
+}
+.text-field,.text-area {
+    -fx-background-color: #afafaf;
+    -fx-control-inner-background:#afafaf;
+
+}
+
+
+.tool-bar{
+    -fx-background-color: #3d3d3d;
+}
+.date-picker-popup .month-year-pane{
+    -fx-background-color: #808080;
+}
+.combo-box{
+    -fx-background-color: #afafaf;
+}
+
