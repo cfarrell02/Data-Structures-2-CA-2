@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -158,6 +159,16 @@ public class MainController {
             }
         }
         return result;
+    }
+
+    public static <T> List<CoolNode<Room>> findPathBreadthFirst(CoolNode<Room> startNode, T lookingfor){
+        List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
+        firstAgendaPath.add(startNode);
+        agenda.add(firstAgendaPath);
+        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
+        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
+        return resultPath;
     }
 
     public CoolNode<Room> getRoom(int ID){
