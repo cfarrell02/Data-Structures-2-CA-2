@@ -7,13 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class MainController {
     @FXML
@@ -28,9 +26,9 @@ public class MainController {
     public Slider routeLimit;
     Image map, blackAndWhite;
     public Label details;
-    public List<CoolNode<Room>> rooms;
+    public Map<Integer,CoolNode<Pixel>> pixels;
+    public Map<Integer,CoolNode<Room>> rooms;
     public List<List<CoolNode<Room>>> paths;
-    int[] blackAndWhiteArray;
 
 
 
@@ -39,52 +37,66 @@ public class MainController {
         map = new Image(new FileInputStream("src/main/resources/main/map.png"));
         blackAndWhite = new Image(new FileInputStream("src/main/resources/main/blackandwhite.png"));
         mainView.setImage(map);
-        rooms = new ArrayList<>();
+        pixels = new HashMap<>();
+        rooms = new HashMap<>();
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
         ObjectInputStream is = xstream.createObjectInputStream(new FileReader("RoomInfo.xml"));
-        rooms = (ArrayList<CoolNode<Room>>) is.readObject();
+        rooms = (Map<Integer,CoolNode<Room>>) is.readObject();
         is.close();}
         catch (IOException | ClassNotFoundException ioException){
             System.err.println(ioException.getMessage());
         }
 
 
-        for(CoolNode<Room> room:rooms){
-            source.getItems().add(room.getContents().getName());
+        for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
+            source.getItems().add(room.getValue().getContents().getName());
         }
-        blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
+
+        int [] blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
         int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
         for(int x =0;x<width;++x){
             for(int y = 0;y<height;++y){
-                if(blackAndWhite.getPixelReader().getColor(x,y).equals(Color.WHITE))
-                    blackAndWhiteArray[y*width+x] = 1;
+                if(blackAndWhite.getPixelReader().getColor(x,y).equals(Color.WHITE)) {
+                    blackAndWhiteArray[y * width + x] = 1;
+                }
                 else
                     blackAndWhiteArray[y*width+x] = 0;
             }
         }
+
+        for(int i = width; i<blackAndWhiteArray.length-width;++i){
+            if(blackAndWhiteArray[i]==1&&i%width!=0&&i%width!=width-1){
+                CoolNode<Pixel> pixel = new CoolNode<>(new Pixel(i%width,i/width));
+                if(blackAndWhiteArray[i-width]==1) pixel.connectToNodeUndirected(pixels.get(i-width));
+                if(blackAndWhiteArray[i-1]==1) pixel.connectToNodeUndirected(pixels.get(i-1));
+                pixels.put(i,pixel);
+            }
+        }
+
+
         waypoints.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        //Adds listener to the source to update rooms
+//        Adds listener to the source to update rooms
         source.valueProperty().addListener(e -> {
             destination.getItems().clear();
             waypoints.getItems().clear();
             Room sourceRoom = getRoom(source.getValue()).getContents();
-            for(CoolNode<Room> room:rooms) {
+            for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()) {
                 if (!sourceRoom.equals(room)) {
-                    destination.getItems().add(room.getContents().getName());
-                    waypoints.getItems().add(room.getContents().getName());
+                    destination.getItems().add(room.getValue().getContents().getName());
+                    waypoints.getItems().add(room.getValue().getContents().getName());
                 }
             }
         });
-        //adds listener to the waypoints to keep them updated with rooms
+//        adds listener to the waypoints to keep them updated with rooms
         waypoints.setOnMouseClicked(e -> {
             Room sourceRoom = getRoom(source.getValue()).getContents();
             destination.getItems().clear();
-            for(CoolNode<Room> room:rooms){
-                if(!waypoints.getSelectionModel().getSelectedItems().contains(room.getContents().getName())&&!sourceRoom.equals(room))
-                destination.getItems().add(room.getContents().getName());
+            for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
+                if(!waypoints.getSelectionModel().getSelectedItems().contains(room.getValue().getContents().getName())&&!sourceRoom.equals(room))
+                destination.getItems().add(room.getValue().getContents().getName());
             }
         });
         mainList.setOnMouseClicked(e -> drawMultiRoute());
@@ -95,13 +107,11 @@ public class MainController {
         List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
         routeDetails.getItems().clear();
         routeDetails.getItems().add(0+": "+route.get(0).getContents().getName());
-        double distance = 0;
         for(int i = 1;i<route.size();++i){
             Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
             mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(),Color.BLUE));
             mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
             routeDetails.getItems().add(i+": "+current.getName());
-            distance+=Utilities.distance(prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY());
         }
 
     }
@@ -117,7 +127,6 @@ public class MainController {
         );
         if(paths.size()>limit)
         paths = paths.subList(0,limit);
-       // paths.sort(Comparator.comparing(List<CoolNode<Room>>::size));
         mainList.getItems().clear();
         for(int i=0;i<paths.size();++i){
             mainList.getItems().add("Route: "+(i+1));
@@ -161,33 +170,42 @@ public class MainController {
         return result;
     }
 
-    public static <T> List<CoolNode<Room>> findPathBreadthFirst(CoolNode<Room> startNode, T lookingfor){
-        List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
-        firstAgendaPath.add(startNode);
-        agenda.add(firstAgendaPath);
-        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
-        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-        return resultPath;
+//    public static <T> List<CoolNode<Room>> findPathBreadthFirst(CoolNode<Room> startNode, T lookingfor){
+//        List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+//        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
+//        firstAgendaPath.add(startNode);
+//        agenda.add(firstAgendaPath);
+//        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
+//        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
+//        return resultPath;
+//    }
+//
+//    public CoolNode<Room> getRoom(int ID){
+//        for(CoolNode<Room> room:rooms){
+//            if(room.getContents().getID() == ID)
+//                return room;
+//        }
+//        return null;
+//    }
+    public CoolNode<Room> getRoom(String name){
+        for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
+            if(room.getValue().getContents().getName().equals(name))
+                return room.getValue();
+        }
+        return null;
     }
 
-    public CoolNode<Room> getRoom(int ID){
-        for(CoolNode<Room> room:rooms){
-            if(room.getContents().getID() == ID)
-                return room;
-        }
-        return null;
-    }    public CoolNode<Room> getRoom(String name){
-        for(CoolNode<Room> room:rooms){
-            if(room.getContents().getName().equals(name))
-                return room;
-        }
-        return null;
-    }
-    public void save() throws IOException {
+//    public CoolNode<Pixel> getPixel(int ID){
+//        for(CoolNode<Pixel> pixel :pixels){
+//            if(pixel.getContents().getID()==ID)
+//                return pixel;
+//        }
+//        return null;
+//    }
+    public void save(Map savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());
-        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("RoomInfo.xml"));
-        out.writeObject(rooms);
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter(fileName));
+        out.writeObject(savedItem);
         out.close();
     }
 

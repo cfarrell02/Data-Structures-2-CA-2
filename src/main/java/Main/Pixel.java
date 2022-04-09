@@ -1,11 +1,20 @@
 package Main;
 
 public class Pixel {
-    private int x,y;
+    private int ID, x,y;
 
     public Pixel(int x, int y) {
         this.x = x;
         this.y = y;
+        this.ID = 0;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public int getX() {
