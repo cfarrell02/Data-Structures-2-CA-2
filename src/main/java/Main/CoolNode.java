@@ -38,7 +38,9 @@ class CoolNode<N>{
 
     public N getContents() { return contents; }
     public void setContents(N c) { contents=c; }
-
+    public boolean equals(CoolNode<N> otherNode){
+        return contents.equals(otherNode.getContents());
+    }
 
     @Override
     public String toString() {
