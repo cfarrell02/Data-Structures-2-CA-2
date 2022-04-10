@@ -66,6 +66,8 @@ public class MainController {
             }
         }
 
+
+
         for(int i = width; i<blackAndWhiteArray.length-width;++i){
             if(blackAndWhiteArray[i]==1&&i%width!=0&&i%width!=width-1){
                 CoolNode<Pixel> pixel = new CoolNode<>(new Pixel(i%width,i/width));
@@ -202,7 +204,7 @@ public class MainController {
 //        }
 //        return null;
 //    }
-    public void save(Map savedItem, String fileName) throws IOException {
+    public void save(int[] savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter(fileName));
         out.writeObject(savedItem);
