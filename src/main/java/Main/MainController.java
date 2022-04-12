@@ -120,15 +120,7 @@ public class MainController {
     } );
     }
 
-<<<<<<< HEAD
-    //Agenda list based breadth-first graph traversal (tail recursive)
-=======
-    void drawMultiRoute(){
-        mainView.setImage(map);
-        List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
 
-        drawRoute(route);
->>>>>>> caf7c357f2852d0208030cba3fffef93cc2962f9
 
     @FXML
     void calculateRoute(){
@@ -143,7 +135,7 @@ public class MainController {
                 mainList.getItems().add("Route: " + (i + 1));
             }
         }else{
-<<<<<<< HEAD
+
             int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
             Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
             List<CoolNode<Pixel>> route = findPathBreadthFirst(pixels.get(sourceRoom.getPixelY()*width+sourceRoom.getPixelX()),pixels.get(destinationRoom.getPixelY()*width+destinationRoom.getPixelX()));
@@ -153,23 +145,23 @@ public class MainController {
                 wr.getPixelWriter().setColor(pixelNode.getContents().getX(),pixelNode.getContents().getY(),Color.BLUE);
                 mainView.setImage(wr);
             }
-=======
+
             route = findPathBreadthFirst(new ArrayList<>(),null,getRoom(destination.getValue()));
             drawRoute(route);
->>>>>>> caf7c357f2852d0208030cba3fffef93cc2962f9
+
         }
 
     }
 
     private void drawRoute(List<CoolNode<Room>> route) {
-<<<<<<< HEAD
+
         mainView.setImage(map);
         routeDetails.getItems().clear();
         routeDetails.getItems().add(0+": "+ route.get(0).getContents().getName());
-=======
+
         routeDetails.getItems().clear();
         routeDetails.getItems().add(0+": "+route.get(0).getContents().getName());
->>>>>>> caf7c357f2852d0208030cba3fffef93cc2962f9
+
         for(int i = 1; i< route.size(); ++i){
             Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
             mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(), Color.BLUE));
@@ -230,7 +222,7 @@ public class MainController {
         return null;
     }
 
-<<<<<<< HEAD
+
     //Interface method to allow just the starting node and the goal node data to match to be specified
     public List<CoolNode<Pixel>> findPathBreadthFirst(CoolNode<Pixel> startNode, CoolNode<Pixel> lookingfor){
         System.out.println("Starting Node "+startNode.getContents().getID());
@@ -253,42 +245,6 @@ public class MainController {
        // System.out.println(currentNode.getContents().getID());
 //        for(CoolNode<Pixel> px:currentNode.getAttachedNodes()){
 //            System.out.println("   "+px.getContents().getID());
-=======
-//    //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
-//    public static <T> List<CoolNode<Room>> findPathBreadthFirst(List<List<CoolNode<Room>>> agenda, List<CoolNode<Room>> encountered, T lookingfor){
-//        if(agenda.isEmpty()) return null; //Search failed
-//        List<CoolNode<Room>> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
-//        CoolNode<Room> currentNode=nextPath.get(0); //The first item in the next path is the current node
-//        if(currentNode.getContents().equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
-//        if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
-//        //encountered list
-//        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-//        for(CoolNode<Room> adjNode : currentNode.getAttachedNodes()) //For each adjacent node
-//            if(!encountered.contains(adjNode)) { //If it hasn't already been encountered
-//                List<CoolNode<Room>> newPath=new ArrayList<>(nextPath); //Create a new path list as a copy of
-////the current/next path
-//                newPath.add(0,adjNode); //And add the adjacent node to the front of the new copy
-//                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
-//            }
-//        return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
-//    }
-
-    public static <T> List<CoolNode<Room>> findPathBreadthFirst(List<List<CoolNode<Room>>> agenda,CoolNode<Room> startNode, T lookingfor){
-     //  List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
-        firstAgendaPath.add(startNode);
-        agenda.add(firstAgendaPath);
-        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
-        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-        return resultPath;
-    }
-
-//    public CoolNode<Pixel> getPixel(int ID){
-//        for(CoolNode<Pixel> pixel :pixels){
-//            if(pixel.getContents().getID()==ID)
-//                return pixel;
->>>>>>> caf7c357f2852d0208030cba3fffef93cc2962f9
-//        }
         int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
         WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
         wr.getPixelWriter().setColor(currentNode.getContents().getX(),currentNode.getContents().getY(),Color.DARKBLUE);
