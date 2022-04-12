@@ -107,14 +107,8 @@ public class MainController {
     void drawMultiRoute(){
         mainView.setImage(map);
         List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
-        routeDetails.getItems().clear();
-        routeDetails.getItems().add(0+": "+route.get(0).getContents().getName());
-        for(int i = 1;i<route.size();++i){
-            Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
-            mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(),Color.BLUE));
-            mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
-            routeDetails.getItems().add(i+": "+current.getName());
-        }
+
+        drawRoute(route);
 
     }
     @FXML
@@ -130,12 +124,25 @@ public class MainController {
                 mainList.getItems().add("Route: " + (i + 1));
             }
         }else{
-            route = findPathBreadthFirst(null,null,getRoom(destination.getValue()));
+            route = findPathBreadthFirst(new ArrayList<>(),null,getRoom(destination.getValue()));
+            drawRoute(route);
         }
 //        mainList.getSelectionModel().select(0);
 //        drawMultiRoute();
 
     }
+
+    private void drawRoute(List<CoolNode<Room>> route) {
+        routeDetails.getItems().clear();
+        routeDetails.getItems().add(0+": "+route.get(0).getContents().getName());
+        for(int i = 1; i< route.size(); ++i){
+            Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
+            mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(), Color.BLUE));
+            mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
+            routeDetails.getItems().add(i+": "+current.getName());
+        }
+    }
+
     public int routeLength(List<CoolNode<Room>> route){
         int distance = 0;
         for(int i = 1;i<route.size();++i){
@@ -206,15 +213,15 @@ public class MainController {
 //        return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
 //    }
 
-//    public static <T> List<CoolNode<Room>> findPathBreadthFirst(CoolNode<Room> startNode, T lookingfor){
-//        List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-//        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
-//        firstAgendaPath.add(startNode);
-//        agenda.add(firstAgendaPath);
-//        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
-//        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-//        return resultPath;
-//    }
+    public static <T> List<CoolNode<Room>> findPathBreadthFirst(List<List<CoolNode<Room>>> agenda,CoolNode<Room> startNode, T lookingfor){
+     //  List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
+        firstAgendaPath.add(startNode);
+        agenda.add(firstAgendaPath);
+        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
+        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
+        return resultPath;
+    }
 
 //    public CoolNode<Pixel> getPixel(int ID){
 //        for(CoolNode<Pixel> pixel :pixels){

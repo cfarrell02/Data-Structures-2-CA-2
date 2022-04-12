@@ -74,11 +74,11 @@
                   <Label layoutX="511.0" layoutY="36.0" text="Route Settings" />
                   <RadioButton fx:id="quickest" layoutX="515.0" layoutY="71.0" mnemonicParsing="false" selected="true" text="Quickest">
                      <toggleGroup>
-                        <ToggleGroup fx:id="route" />
+                        <ToggleGroup fx:id="routeType" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="scenic" layoutX="515.0" layoutY="106.0" mnemonicParsing="false" text="Scenic" toggleGroup="$route" />
-                  <RadioButton fx:id="multiple" layoutX="515.0" layoutY="139.0" mnemonicParsing="false" selected="true" text="Multiple" toggleGroup="$route" />
+                  <RadioButton fx:id="scenic" layoutX="515.0" layoutY="106.0" mnemonicParsing="false" text="Scenic" toggleGroup="$routeType" />
+                  <RadioButton fx:id="multiple" layoutX="515.0" layoutY="139.0" mnemonicParsing="false" selected="true" text="Multiple" toggleGroup="$routeType" />
                   <Label layoutX="515.0" layoutY="180.0" prefHeight="17.0" prefWidth="72.0" text="Max Routes" />
                   <Slider fx:id="routeLimit" blockIncrement="1.0" layoutX="500.0" layoutY="215.0" max="40.0" min="1.0" prefHeight="14.0" prefWidth="98.0" value="10.0" />
                </children>
