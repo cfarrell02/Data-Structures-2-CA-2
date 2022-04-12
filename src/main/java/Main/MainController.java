@@ -3,6 +3,7 @@ package Main;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.security.AnyTypePermission;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -24,12 +25,15 @@ public class MainController {
     public RadioButton quickest,scenic,multiple;
     @FXML
     public Slider routeLimit;
+    @FXML
+    public Button TEST;
     Image map, blackAndWhite;
     public Label details;
     public Map<Integer,CoolNode<Pixel>> pixels;
     public Map<Integer,CoolNode<Room>> rooms;
     public List<List<CoolNode<Room>>> paths;
-    public List<CoolNode<Room>> route;
+    Color tempColor = Color.LIGHTBLUE;
+    //public List<CoolNode<Room>> route;
 
 
     @FXML
@@ -70,9 +74,11 @@ public class MainController {
 
         for(int i = width; i<blackAndWhiteArray.length-width;++i){
             if(blackAndWhiteArray[i]==1&&i%width!=0&&i%width!=width-1){
-                CoolNode<Pixel> pixel = new CoolNode<>(new Pixel(i%width,i/width));
+                CoolNode<Pixel> pixel = new CoolNode<>(new Pixel(i,i%width,i/width));
                 if(blackAndWhiteArray[i-width]==1) pixel.connectToNodeUndirected(pixels.get(i-width));
                 if(blackAndWhiteArray[i-1]==1) pixel.connectToNodeUndirected(pixels.get(i-1));
+//                if(blackAndWhiteArray[i-width-1]==1) pixel.connectToNodeUndirected(pixels.get(i-width-1));
+//                if(blackAndWhiteArray[i-width+1]==1) pixel.connectToNodeUndirected(pixels.get(i-width+1));
                 pixels.put(i,pixel);
             }
         }
@@ -101,22 +107,21 @@ public class MainController {
                 destination.getItems().add(room.getValue().getContents().getName());
             }
         });
-        mainList.setOnMouseClicked(e -> drawMultiRoute());
+        mainList.setOnMouseClicked(e ->
+        {
+            List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
+            drawRoute(route);
+        });
+    TEST.setOnAction(e ->{
+//        List<List<CoolNode<Pixel>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+//        List<CoolNode<Pixel>> firstAgendaPath=new ArrayList<>(),resultPath;
+//        firstAgendaPath.add(pixels.get(getRoom(source.getValue()).getContents().getPixelY()*width+getRoom(source.getValue()).getContents().getPixelX()));
+//        agenda.add(firstAgendaPath);
+    } );
     }
 
-    void drawMultiRoute(){
-        mainView.setImage(map);
-        List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
-        routeDetails.getItems().clear();
-        routeDetails.getItems().add(0+": "+route.get(0).getContents().getName());
-        for(int i = 1;i<route.size();++i){
-            Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
-            mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(),Color.BLUE));
-            mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
-            routeDetails.getItems().add(i+": "+current.getName());
-        }
+    //Agenda list based breadth-first graph traversal (tail recursive)
 
-    }
     @FXML
     void calculateRoute(){
         mainView.setImage(map);
@@ -130,12 +135,31 @@ public class MainController {
                 mainList.getItems().add("Route: " + (i + 1));
             }
         }else{
-            route = findPathBreadthFirst(null,null,getRoom(destination.getValue()));
+            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
+            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
+            List<CoolNode<Pixel>> route = findPathBreadthFirst(pixels.get(sourceRoom.getPixelY()*width+sourceRoom.getPixelX()),pixels.get(destinationRoom.getPixelY()*width+destinationRoom.getPixelX()));
+            mainView.setImage(map);
+            for(CoolNode<Pixel> pixelNode:route){
+                WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
+                wr.getPixelWriter().setColor(pixelNode.getContents().getX(),pixelNode.getContents().getY(),Color.BLUE);
+                mainView.setImage(wr);
+            }
         }
-//        mainList.getSelectionModel().select(0);
-//        drawMultiRoute();
 
     }
+
+    private void drawRoute(List<CoolNode<Room>> route) {
+        mainView.setImage(map);
+        routeDetails.getItems().clear();
+        routeDetails.getItems().add(0+": "+ route.get(0).getContents().getName());
+        for(int i = 1; i< route.size(); ++i){
+            Room current = route.get(i).getContents(), prev = route.get(i-1).getContents();
+            mainView.setImage(Utilities.drawLine(mainView.getImage(),current.getPixelX(),current.getPixelY(),prev.getPixelX(),prev.getPixelY(), Color.BLUE));
+            mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
+            routeDetails.getItems().add(i+": "+current.getName());
+        }
+    }
+
     public int routeLength(List<CoolNode<Room>> route){
         int distance = 0;
         for(int i = 1;i<route.size();++i){
@@ -179,6 +203,7 @@ public class MainController {
 //        }
 //        return null;
 //    }
+
     public CoolNode<Room> getRoom(String name){
         for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
             if(room.getValue().getContents().getName().equals(name))
@@ -187,47 +212,52 @@ public class MainController {
         return null;
     }
 
-//    //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
-//    public static <T> List<CoolNode<Room>> findPathBreadthFirst(List<List<CoolNode<Room>>> agenda, List<CoolNode<Room>> encountered, T lookingfor){
-//        if(agenda.isEmpty()) return null; //Search failed
-//        List<CoolNode<Room>> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
-//        CoolNode<Room> currentNode=nextPath.get(0); //The first item in the next path is the current node
-//        if(currentNode.getContents().equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
-//        if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
-//        //encountered list
-//        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-//        for(CoolNode<Room> adjNode : currentNode.getAttachedNodes()) //For each adjacent node
-//            if(!encountered.contains(adjNode)) { //If it hasn't already been encountered
-//                List<CoolNode<Room>> newPath=new ArrayList<>(nextPath); //Create a new path list as a copy of
-////the current/next path
-//                newPath.add(0,adjNode); //And add the adjacent node to the front of the new copy
-//                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
-//            }
-//        return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
-//    }
-
-//    public static <T> List<CoolNode<Room>> findPathBreadthFirst(CoolNode<Room> startNode, T lookingfor){
-//        List<List<CoolNode<Room>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-//        List<CoolNode<Room>> firstAgendaPath=new ArrayList<>(),resultPath;
-//        firstAgendaPath.add(startNode);
-//        agenda.add(firstAgendaPath);
-//        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
-//        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-//        return resultPath;
-//    }
-
-//    public CoolNode<Pixel> getPixel(int ID){
-//        for(CoolNode<Pixel> pixel :pixels){
-//            if(pixel.getContents().getID()==ID)
-//                return pixel;
+    //Interface method to allow just the starting node and the goal node data to match to be specified
+    public List<CoolNode<Pixel>> findPathBreadthFirst(CoolNode<Pixel> startNode, CoolNode<Pixel> lookingfor){
+        System.out.println("Starting Node "+startNode.getContents().getID());
+        System.out.println("End Node "+lookingfor.getContents().getID());
+        List<List<CoolNode<Pixel>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+        List<CoolNode<Pixel>> firstAgendaPath=new ArrayList<>(),resultPath;
+        firstAgendaPath.add(startNode);
+        agenda.add(firstAgendaPath);
+        resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
+        if(resultPath!=null)
+        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
+        return resultPath;
+    }
+    //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
+    public List<CoolNode<Pixel>> findPathBreadthFirst(List<List<CoolNode<Pixel>>> agenda,
+                                                                List<CoolNode<Pixel>> encountered, CoolNode<Pixel> lookingfor){
+        if(agenda.isEmpty()) return null; //Search failed
+        List<CoolNode<Pixel>> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
+        CoolNode<Pixel> currentNode=nextPath.get(0); //The first item in the next path is the current node
+       // System.out.println(currentNode.getContents().getID());
+//        for(CoolNode<Pixel> px:currentNode.getAttachedNodes()){
+//            System.out.println("   "+px.getContents().getID());
 //        }
-//        return null;
-//    }
+        int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
+        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
+        wr.getPixelWriter().setColor(currentNode.getContents().getX(),currentNode.getContents().getY(),Color.DARKBLUE);
+        mainView.setImage(wr);
+        if(currentNode.getContents().equals(lookingfor.getContents())) return nextPath; //If that's the goal, we've found our path (so return it)
+        if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
+      //  encountered list
+        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
+        for(CoolNode<Pixel> adjNode : currentNode.getAttachedNodes()) //For each adjacent node
+            if(!encountered.contains(adjNode)) { //If it hasn't already been encountered
+                List<CoolNode<Pixel>> newPath=new ArrayList<>(nextPath); //Create a new path list as a copy of
+//the current/next path
+                newPath.add(0,adjNode); //And add the adjacent node to the front of the new copy
+                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+            }
+        return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
+    }
     public void save(int[] savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter(fileName));
         out.writeObject(savedItem);
         out.close();
     }
+
 
 }

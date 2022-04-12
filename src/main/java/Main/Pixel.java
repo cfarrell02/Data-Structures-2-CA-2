@@ -3,10 +3,10 @@ package Main;
 public class Pixel {
     private int ID, x,y;
 
-    public Pixel(int x, int y) {
+    public Pixel(int ID,int x, int y) {
         this.x = x;
         this.y = y;
-        this.ID = 0;
+        this.ID = ID;
     }
 
     public int getID() {

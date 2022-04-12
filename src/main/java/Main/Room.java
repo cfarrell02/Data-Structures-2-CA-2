@@ -69,6 +69,9 @@ public class Room {
     }
 
 
+//    public boolean equals(Room otherRoom){
+//        return otherRoom.getID() == this.ID;
+//    }
     @Override
     public String toString() {
         return "Room{" +
