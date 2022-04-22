@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 import java.io.*;
@@ -26,13 +27,13 @@ public class MainController {
     @FXML
     public Slider routeLimit;
     @FXML
-    public Button TEST;
     Image map, blackAndWhite;
-    public Label details;
     public Map<Integer,CoolNode<Pixel>> pixels;
+    int [] blackAndWhiteArray ;
     public Map<Integer,CoolNode<Room>> rooms;
     public List<List<CoolNode<Room>>> paths;
-    Color tempColor = Color.LIGHTBLUE;
+    @FXML
+    public AnchorPane leftPane, rightPane;
     //public List<CoolNode<Room>> route;
 
 
@@ -40,6 +41,7 @@ public class MainController {
     void initialize() throws FileNotFoundException {
         map = new Image(new FileInputStream("src/main/resources/main/map.png"));
         blackAndWhite = new Image(new FileInputStream("src/main/resources/main/blackandwhite.png"));
+        blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
         mainView.setImage(map);
         pixels = new HashMap<>();
         rooms = new HashMap<>();
@@ -50,7 +52,8 @@ public class MainController {
         rooms = (Map<Integer,CoolNode<Room>>) is.readObject();
         is.close();}
         catch (IOException | ClassNotFoundException ioException){
-            System.err.println(ioException.getMessage());
+            System.err.println("XML Load Error: \n"+ioException.getMessage());
+
         }
 
 
@@ -58,7 +61,7 @@ public class MainController {
             source.getItems().add(room.getValue().getContents().getName());
         }
 
-        int [] blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
+
         int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
         for(int x =0;x<width;++x){
             for(int y = 0;y<height;++y){
@@ -110,14 +113,21 @@ public class MainController {
         mainList.setOnMouseClicked(e ->
         {
             List<CoolNode<Room>> route = paths.get(mainList.getSelectionModel().getSelectedIndex());
+            if(route!=null)
             drawRoute(route);
         });
-    TEST.setOnAction(e ->{
-//        List<List<CoolNode<Pixel>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-//        List<CoolNode<Pixel>> firstAgendaPath=new ArrayList<>(),resultPath;
-//        firstAgendaPath.add(pixels.get(getRoom(source.getValue()).getContents().getPixelY()*width+getRoom(source.getValue()).getContents().getPixelX()));
-//        agenda.add(firstAgendaPath);
-    } );
+
+//        mainView.setOnMouseMoved(e -> {
+//            WritableImage wr = new WritableImage(map.getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
+//            CoolNode<Pixel> pixel = pixels.get((int) (e.getY()*width+e.getX()));
+//            if(pixel==null) return;
+//            wr.getPixelWriter().setColor(pixel.getContents().getX(),pixel.getContents().getY(),Color.BLUE);
+//            for(CoolNode<Pixel> pixelCoolNode: pixel.getAttachedNodes()){
+//                wr.getPixelWriter().setColor(pixelCoolNode.getContents().getX(),pixelCoolNode.getContents().getY(),Color.PINK);
+//            }
+//            mainView.setImage(wr);
+//        });
+
     }
 
 
@@ -136,18 +146,21 @@ public class MainController {
             }
         }else{
 
-            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
-            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
-            List<CoolNode<Pixel>> route = findPathBreadthFirst(pixels.get(sourceRoom.getPixelY()*width+sourceRoom.getPixelX()),pixels.get(destinationRoom.getPixelY()*width+destinationRoom.getPixelX()));
-            mainView.setImage(map);
-            for(CoolNode<Pixel> pixelNode:route){
-                WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
-                wr.getPixelWriter().setColor(pixelNode.getContents().getX(),pixelNode.getContents().getY(),Color.BLUE);
-                mainView.setImage(wr);
-            }
-
-            route = findPathBreadthFirst(new ArrayList<>(),null,getRoom(destination.getValue()));
+//            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
+//            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
+            List<CoolNode<Room>> route = findCheapestPathDijkstra(getRoom(source.getValue()),getRoom(destination.getValue()).getContents()).getList();
             drawRoute(route);
+            //List<Integer> route = findPathBreadthFirst(sourceRoom.getPixelY()*width+sourceRoom.getPixelX(),destinationRoom.getPixelY()*width+destinationRoom.getPixelX());
+//            mainView.setImage(map);
+//            for(CoolNode<Room> pixel:route){
+//                WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
+//                Utilities.drawLine()
+//                wr.getPixelWriter().setColor(pixel%width,pixel/width,Color.BLUE);
+//                mainView.setImage(wr);
+//            }
+
+//           route = findPathBreadthFirst(new ArrayList<>(),null,getRoom(destination.getValue()));
+//            drawRoute(route);
 
         }
 
@@ -224,43 +237,90 @@ public class MainController {
 
 
     //Interface method to allow just the starting node and the goal node data to match to be specified
-    public List<CoolNode<Pixel>> findPathBreadthFirst(CoolNode<Pixel> startNode, CoolNode<Pixel> lookingfor){
-        System.out.println("Starting Node "+startNode.getContents().getID());
-        System.out.println("End Node "+lookingfor.getContents().getID());
-        List<List<CoolNode<Pixel>>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
-        List<CoolNode<Pixel>> firstAgendaPath=new ArrayList<>(),resultPath;
+    public List<Integer> findPathBreadthFirst(Integer startNode, Integer lookingfor){
+        List<List<Integer>> agenda=new ArrayList<>(); //Agenda comprised of path lists here!
+        List<Integer> firstAgendaPath=new ArrayList<>(),resultPath;
         firstAgendaPath.add(startNode);
         agenda.add(firstAgendaPath);
         resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
-        if(resultPath!=null)
         Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
         return resultPath;
     }
     //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
-    public List<CoolNode<Pixel>> findPathBreadthFirst(List<List<CoolNode<Pixel>>> agenda,
-                                                                List<CoolNode<Pixel>> encountered, CoolNode<Pixel> lookingfor){
+    public List<Integer> findPathBreadthFirst(List<List<Integer>> agenda,
+                                                                List<Integer> encountered, Integer lookingfor){
         if(agenda.isEmpty()) return null; //Search failed
-        List<CoolNode<Pixel>> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
-        CoolNode<Pixel> currentNode=nextPath.get(0); //The first item in the next path is the current node
-       // System.out.println(currentNode.getContents().getID());
-//        for(CoolNode<Pixel> px:currentNode.getAttachedNodes()){
-//            System.out.println("   "+px.getContents().getID());
-        int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
-        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
-        wr.getPixelWriter().setColor(currentNode.getContents().getX(),currentNode.getContents().getY(),Color.DARKBLUE);
+        List<Integer> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
+        Integer currentNode=nextPath.get(0); //The first item in the next path is the current node
+        System.out.println(currentNode);
+        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
+        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
         mainView.setImage(wr);
-        if(currentNode.getContents().equals(lookingfor.getContents())) return nextPath; //If that's the goal, we've found our path (so return it)
+        if(currentNode.equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
         if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
       //  encountered list
         encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-        for(CoolNode<Pixel> adjNode : currentNode.getAttachedNodes()) //For each adjacent node
-            if(!encountered.contains(adjNode)) { //If it hasn't already been encountered
-                List<CoolNode<Pixel>> newPath=new ArrayList<>(nextPath); //Create a new path list as a copy of
-//the current/next path
-                newPath.add(0,adjNode); //And add the adjacent node to the front of the new copy
+        int[] directions = {1,-1,(int) map.getWidth(),-((int) map.getWidth())};
+        for(int direction:directions) {//For each adjacent node
+            int adjNode = currentNode+direction;
+            if (blackAndWhiteArray[adjNode]!=0&&!encountered.contains(adjNode)) { //If it hasn't already been encountered
+                List<Integer> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
+                newPath.add(0, adjNode); //And add the adjacent node to the front of the new copy
                 agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
             }
+        }
         return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
+    }
+
+    public static  CostedPath findCheapestPathDijkstra(CoolNode<Room> startNode, Room lookingfor){
+        CostedPath cp=new CostedPath(); //Create result object for cheapest path
+        List<CoolNode<Room>> encountered=new ArrayList<>(), unencountered=new ArrayList<>(); //Create encountered/unencountered lists
+        startNode.setNodeValue(0); //Set the starting node value to zero
+        unencountered.add(startNode); //Add the start node as the only value in the unencountered list to start
+        CoolNode<Room> currentNode;
+        System.out.println(1);
+        do{ //Loop until unencountered list is empty
+            currentNode=unencountered.remove(0); //Get the first unencountered node (sorted list, so will have lowest value)
+            encountered.add(currentNode); //Record current node in encountered list
+            if(currentNode.getContents().equals(lookingfor)){ //Found goal - assemble path list back to start and return it
+                cp.getList().add(currentNode); //Add the current (goal) node to the result list (only element)
+                cp.setCost(currentNode.getNodeValue()); //The total cheapest path cost is the node value of the current/goal node
+                while(currentNode!=startNode) { //While we're not back to the start node...
+                    boolean foundPrevPathNode=false; //Use a flag to identify when the previous path node is identified
+                    for(CoolNode<Room> n : encountered) { //For each node in the encountered list...
+                        for(CoolNode<Room> e : n.getAttachedNodes()){ //For each edge from that node...
+                            if(e.equals(currentNode) && Math.abs(currentNode.getNodeValue()-(Utilities.distance(
+                                    n.getContents().getPixelX(),n.getContents().getPixelY(),e.getContents().getPixelX(),
+                                    e.getContents().getPixelY())))==n.getNodeValue()){ //If that edge links to the
+//current node and the difference in node values is the cost of the edge -> found path node!
+
+                                cp.getList().add(0,n); //Add the identified path node to the front of the result list
+                                System.out.println(n.getContents().getName());
+                                currentNode=n; //Move the currentNode reference back to the identified path node
+                                foundPrevPathNode=true; //Set the flag to break the outer loop
+                                break; //We've found the correct previous path node and moved the currentNode reference
+//back to it so break the inner loop
+                            }}
+                        if(foundPrevPathNode) break; //We've identified the previous path node, so break the inner loop to continue
+                    }
+                }
+//Reset the node values for all nodes to (effectively) infinity so we can search again (leave no footprint!)
+                for(CoolNode<Room> n : encountered) n.setNodeValue(Integer.MAX_VALUE);
+                for(CoolNode<Room> n : unencountered) n.setNodeValue(Integer.MAX_VALUE);
+                return cp; //The costed (cheapest) path has been assembled, so return it!
+            }
+//We're not at the goal node yet, so...
+            for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
+                if(!encountered.contains(e)) { //If the node it leads to has not yet been encountered (i.e. processed)
+                    e.setNodeValue(Integer.min(e.getNodeValue(), (int) (currentNode.getNodeValue()+Utilities.distance
+                                                (currentNode.getContents().getPixelX(),currentNode.getContents().getPixelY(),
+                                                        e.getContents().getPixelX(),e.getContents().getPixelY()))));//Update the node value at the end
+//of the edge to the minimum of its current value or the total of the current node's value plus the cost of the edge
+                    unencountered.add(e);
+                }
+            unencountered.sort(Comparator.comparingInt(CoolNode::getNodeValue)); //Sort in ascending node value order
+        }while(!unencountered.isEmpty());
+        return null; //No path found, so return null
     }
     public void save(int[] savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());

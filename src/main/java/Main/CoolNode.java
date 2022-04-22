@@ -5,6 +5,7 @@ import java.util.List;
 
 class CoolNode<N>{
     private List<CoolNode<N>> attachedNodes;
+    private int nodeValue;
     private N contents; //ADT reference
     CoolNode(N data) {
         contents = data;
@@ -15,7 +16,9 @@ class CoolNode<N>{
         attachedNodes.add(destNode);
     }
     public void connectToNodeUndirected(CoolNode<N> destNode) {
+        if(!attachedNodes.contains(destNode))
         attachedNodes.add(destNode);
+        if(!destNode.getAttachedNodes().contains(this))
         destNode.getAttachedNodes().add(this);
     }
 
@@ -40,6 +43,14 @@ class CoolNode<N>{
     public void setContents(N c) { contents=c; }
     public boolean equals(CoolNode<N> otherNode){
         return contents.equals(otherNode.getContents());
+    }
+
+    public int getNodeValue() {
+        return nodeValue;
+    }
+
+    public void setNodeValue(int nodeValue) {
+        this.nodeValue = nodeValue;
     }
 
     @Override
