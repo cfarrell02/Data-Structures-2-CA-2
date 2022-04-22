@@ -9,7 +9,6 @@ public class CostedPath {
 
     public CostedPath() {
         this.list = new ArrayList<>();
-        this.cost = Integer.MAX_VALUE;
     }
 
     public List<CoolNode<Room>> getList() {

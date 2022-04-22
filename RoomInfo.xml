@@ -29,6 +29,7 @@
                                               <Main.CoolNode reference="../../../../../../../../../../../../../../../.."/>
                                               <Main.CoolNode reference="../../../.."/>
                                             </attachedNodes>
+                                            <nodeValue>2147483647</nodeValue>
                                             <contents class="Main.Room">
                                               <name>Room 6</name>
                                               <details>Room Closed</details>
@@ -39,6 +40,7 @@
                                           </Main.CoolNode>
                                           <Main.CoolNode reference="../../../.."/>
                                         </attachedNodes>
+                                        <nodeValue>2147483647</nodeValue>
                                         <contents class="Main.Room">
                                           <name>Room 7</name>
                                           <details>Room Closed</details>
@@ -49,6 +51,7 @@
                                       </Main.CoolNode>
                                       <Main.CoolNode reference="../../../.."/>
                                     </attachedNodes>
+                                    <nodeValue>2147483647</nodeValue>
                                     <contents class="Main.Room">
                                       <name>Room 8</name>
                                       <details>Room Closed</details>
@@ -81,6 +84,7 @@
                                                                       <Main.CoolNode reference="../../../../../../../../../../../../../../../../../../../../../../../.."/>
                                                                       <Main.CoolNode reference="../../../.."/>
                                                                     </attachedNodes>
+                                                                    <nodeValue>2147483647</nodeValue>
                                                                     <contents class="Main.Room">
                                                                       <name>Room 14: The Netherlands</name>
                                                                       <details>Portraits by Netherlandish artists reveal a range of approaches to characterisation, from the delicacy of Catharina van Hemessen to the boldness of Lucas van Leyden and the frankness of Gossaert. Other pictures by artists of the period, such as Marinus van Reymerswaele, use some of the conventions of portraiture to make satirical observations. Pieter Bruegel the Elder is represented here by his tightly focused Adoration of the Kings, a masterpiece of speedy and skilful manipulation of oil paint, as well as an extraordinary study in characterisation.</details>
@@ -98,6 +102,7 @@
                                                                         <attachedNodes>
                                                                           <Main.CoolNode reference="../../../.."/>
                                                                         </attachedNodes>
+                                                                        <nodeValue>2147483647</nodeValue>
                                                                         <contents class="Main.Room">
                                                                           <name>Room 31</name>
                                                                           <details>Room Closed</details>
@@ -118,6 +123,7 @@
                                                                                   <Main.CoolNode reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../../../.."/>
                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                 </attachedNodes>
+                                                                                <nodeValue>2147483647</nodeValue>
                                                                                 <contents class="Main.Room">
                                                                                   <name>Room 12: Northern Italian Portraiture 1510–1580</name>
                                                                                   <details>The paintings displayed in this room are predominantly portraits by Northern Italian artists and as such reflect one of the most important pictorial genres of the period. Regardless of the identity of the sitter, the primary function of a portrait was to capture likeness and inner virtue, denoting that the sitter was worthy of the honour of being portrayed and in time, remembered.</details>
@@ -155,6 +161,7 @@
                                                                                                                           <Main.CoolNode reference="../../../../../../../../../../../../../../../../../../../.."/>
                                                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                                                         </attachedNodes>
+                                                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                                                         <contents class="Main.Room">
                                                                                                                           <name>Room 40: 18th-century painting in Europe</name>
                                                                                                                           <details>During the 18th century it was common for artists to travel, both to seek inspiration and embrace opportunity. Claude-Joseph Vernet was the most celebrated French view painter of the period. In 1734 he relocated to Rome, where he spent almost 20 years and earned an international reputation. Vernet’s view paintings (or ‘vedute’) were particularly sought after by travellers on the and European rulers. His contrasting pair of paintings, A Landscape at Sunset and A Shipwreck in Stormy Seas, were originally commissioned for the King of Poland, Stanislaus Augustus Poniatowski (1732–1798), whose official court painter at the time was Bernardo Bellotto. Having trained with his uncle Canaletto in Venice, Bellotto went on to enjoy a successful career at the royal courts in Dresden, Vienna, Munich and Warsaw, glorifying the great capitals of Europe through his highly original topographical views.</details>
@@ -171,6 +178,7 @@
                                                                                                                               <Main.CoolNode reference="../../../.."/>
                                                                                                                               <Main.CoolNode reference="../../../../../../../../../../../../../../../../../../../../../../../../../.."/>
                                                                                                                             </attachedNodes>
+                                                                                                                            <nodeValue>2147483647</nodeValue>
                                                                                                                             <contents class="Main.Room">
                                                                                                                               <name>Room 39: Canaletto, Pittoni, and Tiepolo</name>
                                                                                                                               <details>Although no longer the powerful maritime empire it had been in previous centuries, Venice remained a prosperous trading place and a centre for the visual arts until the decline of the Venetian Republic at the end of the 18th century.</details>
@@ -180,6 +188,7 @@
                                                                                                                             </contents>
                                                                                                                           </Main.CoolNode>
                                                                                                                         </attachedNodes>
+                                                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                                                         <contents class="Main.Room">
                                                                                                                           <name>Room 38: Canaletto and Guardi</name>
                                                                                                                           <details>Paintings portraying the grandeur of Venice became popular at the dawn of modern tourism. British visitors on the Grand Tour created a demand for view paintings of celebrated sights and Venetian festivals to take home with them. Many gentlemen – so-called milordi – sought the works of Giovanni Antonio Canal, better known as Canaletto. His views went beyond topographical accuracy to capture the poetic play of light, water and architecture, unique to the experience of Venice. Prompted by declining tourism, in 1746 Canaletto moved to England, where he painted views of London, Oxford and other cities as well as the country seats of his patrons.</details>
@@ -194,6 +203,7 @@
                                                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                                                           <Main.CoolNode reference="../../../../../../../../../../../.."/>
                                                                                                                         </attachedNodes>
+                                                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                                                         <contents class="Main.Room">
                                                                                                                           <name>Room 35: Hogarth and British Painting</name>
                                                                                                                           <details>William Hogarth, the leading British painter of the early 18th century, was determined that his fellow artists should be seen as the equals of their European contemporaries. His paintings of such subjects as Marriage A-la-Mode were reproduced as commercially successful engravings, but his rich and subtle characterisation is most fully evident in the original paintings. Hogarth’s portraits also vividly demonstrate his skilful and economical painting technique, especially his images of colourful characters observed on the streets of London.</details>
@@ -203,6 +213,7 @@
                                                                                                                         </contents>
                                                                                                                       </Main.CoolNode>
                                                                                                                     </attachedNodes>
+                                                                                                                    <nodeValue>2147483647</nodeValue>
                                                                                                                     <contents class="Main.Room">
                                                                                                                       <name>Room 36: Claude and Turner</name>
                                                                                                                       <details>Two works by the 19th-century English painter Turner are hung in this room with two by the 17th-century French landscape painter Claude, in accordance with Turner’s will. When Turner died in 1851, he left to the National Gallery Dido building Carthage and Sun rising through Vapour on condition that they were hung ‘always between the two pictures painted by Claude’, which he named as &apos;The Seaport&apos; and &apos;The Mill&apos;.</details>
@@ -213,6 +224,7 @@
                                                                                                                   </Main.CoolNode>
                                                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                                                 </attachedNodes>
+                                                                                                                <nodeValue>2147483647</nodeValue>
                                                                                                                 <contents class="Main.Room">
                                                                                                                   <name>Room 37: The Grand Tour</name>
                                                                                                                   <details>By the eighteenth century, the Grand Tour had become an established part of a young aristocrat’s education. Lasting anywhere from several months to several years, a Grand Tour voyage involved visiting the great sites and monuments of Europe. Italy held a particular allure, combining the treasures of classical antiquity with the more recent artistic achievements of the Old Masters.</details>
@@ -222,6 +234,7 @@
                                                                                                                 </contents>
                                                                                                               </Main.CoolNode>
                                                                                                             </attachedNodes>
+                                                                                                            <nodeValue>2147483647</nodeValue>
                                                                                                             <contents class="Main.Room">
                                                                                                               <name>Room 32: 17th-century Italian paintings</name>
                                                                                                               <details></details>
@@ -232,6 +245,7 @@
                                                                                                           </Main.CoolNode>
                                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                                         </attachedNodes>
+                                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                                         <contents class="Main.Room">
                                                                                                           <name>Room 33</name>
                                                                                                           <details>David, Fragonard and Vernet</details>
@@ -243,6 +257,7 @@
                                                                                                       <Main.CoolNode reference="../../../.."/>
                                                                                                       <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]"/>
                                                                                                     </attachedNodes>
+                                                                                                    <nodeValue>2147483647</nodeValue>
                                                                                                     <contents class="Main.Room">
                                                                                                       <name>Room 34: Constable, Turner and Stubbs</name>
                                                                                                       <details>By the second half of the 18th century, British society portraits by Thomas Gainsborough and Joshua Reynolds were painted on a grand scale in the European manner. George Stubbs’s equivalent representations of heroic racehorses were, however, uniquely British. Other family and group portraits by William Hogarth and Joseph Wright of Derby reflect more traditional preoccupations with mortality.</details>
@@ -253,6 +268,7 @@
                                                                                                   </Main.CoolNode>
                                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                                 </attachedNodes>
+                                                                                                <nodeValue>2147483647</nodeValue>
                                                                                                 <contents class="Main.Room">
                                                                                                   <name>Room 41</name>
                                                                                                   <details>Cézanne, Monet, Renoir</details>
@@ -263,6 +279,7 @@
                                                                                               </Main.CoolNode>
                                                                                               <Main.CoolNode reference="../../../.."/>
                                                                                             </attachedNodes>
+                                                                                            <nodeValue>2147483647</nodeValue>
                                                                                             <contents class="Main.Room">
                                                                                               <name>Room 42</name>
                                                                                               <details>Room closed</details>
@@ -273,6 +290,7 @@
                                                                                           </Main.CoolNode>
                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                         </attachedNodes>
+                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                         <contents class="Main.Room">
                                                                                           <name>Room 43</name>
                                                                                           <details>Gauguin, Seurat, Van Gogh</details>
@@ -284,6 +302,7 @@
                                                                                       <Main.CoolNode reference="../../../.."/>
                                                                                       <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode"/>
                                                                                     </attachedNodes>
+                                                                                    <nodeValue>2147483647</nodeValue>
                                                                                     <contents class="Main.Room">
                                                                                       <name>Room 44</name>
                                                                                       <details>Cézanne, Degas, Monet</details>
@@ -305,6 +324,7 @@
                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                           <Main.CoolNode reference="../../../../../../../.."/>
                                                                                         </attachedNodes>
+                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                         <contents class="Main.Room">
                                                                                           <name>Shop</name>
                                                                                           <details>Gallery Shop</details>
@@ -322,6 +342,7 @@
                                                                                           <Main.CoolNode reference="../../../.."/>
                                                                                           <Main.CoolNode reference="../../../../../../../.."/>
                                                                                         </attachedNodes>
+                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                         <contents class="Main.Room">
                                                                                           <name>Annenberg Court</name>
                                                                                           <details></details>
@@ -331,6 +352,7 @@
                                                                                         </contents>
                                                                                       </Main.CoolNode>
                                                                                     </attachedNodes>
+                                                                                    <nodeValue>2147483647</nodeValue>
                                                                                     <contents class="Main.Room">
                                                                                       <name>Room 46: Gainsborough&apos;s Blue Boy </name>
                                                                                       <details>In the winter of 1922, Gainsborough’s ‘The Blue Boy’ hung at the Gallery for three weeks before it sailed across the Atlantic to its new home in California. It was a public farewell to a beloved painting.</details>
@@ -343,6 +365,7 @@
                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                   <Main.CoolNode reference="../Main.CoolNode[4]/attachedNodes/Main.CoolNode[6]"/>
                                                                                 </attachedNodes>
+                                                                                <nodeValue>2147483647</nodeValue>
                                                                                 <contents class="Main.Room">
                                                                                   <name>Room 45</name>
                                                                                   <details>Constable, Corot and Ingres</details>
@@ -357,6 +380,7 @@
                                                                               <Main.CoolNode reference="../Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]"/>
                                                                               <Main.CoolNode reference="../Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[6]"/>
                                                                             </attachedNodes>
+                                                                            <nodeValue>2147483647</nodeValue>
                                                                             <contents class="Main.Room">
                                                                               <name>Central Hall</name>
                                                                               <details>Main Hall</details>
@@ -366,6 +390,7 @@
                                                                             </contents>
                                                                           </Main.CoolNode>
                                                                         </attachedNodes>
+                                                                        <nodeValue>2147483647</nodeValue>
                                                                         <contents class="Main.Room">
                                                                           <name>Sunley Room: Kehinde Wiley at the National Gallery</name>
                                                                           <details>Kehinde Wiley is an American artist best known for his portraits that render people of colour in the traditional settings of Old Master paintings. Most famously, in 2017, he was commissioned to paint Barack Obama, becoming the first Black artist to paint an official portrait of a president of the United States. His work makes reference to the canon of European portraiture by positioning contemporary Black sitters, from a range of ethnic and social backgrounds, in the poses of the original historical, religious or mythological figures. His images – as part quotation, part intervention – raise questions about power, privilege, identity, and above all highlight the absence or relegation of Black figures within European art. </details>
@@ -376,6 +401,7 @@
                                                                       </Main.CoolNode>
                                                                       <Main.CoolNode reference="../Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode"/>
                                                                     </attachedNodes>
+                                                                    <nodeValue>2147483647</nodeValue>
                                                                     <contents class="Main.Room">
                                                                       <name>Room 30: Spain</name>
                                                                       <details>Spanish painting flourished during the 17th century principally in the service of God and King. The evolution of a Catholic Counter-Reformation religiosity is revealed in a variety of powerful, individual styles. Not long after El Greco had portrayed the divine with ethereal idealisations of figures, space and light, Diego Velázquez and Francisco de Zurbarán turned to realism to represent the mystical.</details>
@@ -385,6 +411,7 @@
                                                                     </contents>
                                                                   </Main.CoolNode>
                                                                 </attachedNodes>
+                                                                <nodeValue>2147483647</nodeValue>
                                                                 <contents class="Main.Room">
                                                                   <name>Room 29: French Painting 1600–1700 </name>
                                                                   <details>In the 17th century, political ambitions to make of Paris a new Rome resulted in more French-born painters making their careers in the French capital. This trend was encouraged by the founding in 1648 of a royal academy of the arts, and by many wealthy individuals refurbishing their homes. Paintings such as Philippe de Champaigne’s full-length portrait of Cardinal de Richelieu make manifest the increasing power and self-confidence that was felt in France in this period. </details>
@@ -420,6 +447,7 @@
                                                                                               <Main.CoolNode reference="../../../../../../../.."/>
                                                                                               <Main.CoolNode reference="../../../.."/>
                                                                                             </attachedNodes>
+                                                                                            <nodeValue>2147483647</nodeValue>
                                                                                             <contents class="Main.Room">
                                                                                               <name>Room 19: Dutch landscapes</name>
                                                                                               <details>Peter Paul Rubens, the most celebrated Flemish painter of Western art, was actually born in Germany to parents who had fled Antwerp because of their Protestant beliefs. In 1587 his family returned to Antwerp, where Rubens eventually converted to Catholicism. He had an enormously successful career as a learned painter of religious works expressing the Catholic reaction to the Reformation (the Counter-Reformation). Rubens was equally successful as a painter to the courts of Europe, including England, and on occasion worked as a diplomat. The ingenuity of his compositions, brilliant use of colour and his superb draughtsmanship made Rubens eminently suited to the task of dazzling audiences with the message of the Counter-Reformation. But he was equally determined to convey the stories and morals of Classical Antiquity.</details>
@@ -429,6 +457,7 @@
                                                                                             </contents>
                                                                                           </Main.CoolNode>
                                                                                         </attachedNodes>
+                                                                                        <nodeValue>2147483647</nodeValue>
                                                                                         <contents class="Main.Room">
                                                                                           <name>Room 20: A different view of Flanders</name>
                                                                                           <details>Rubens’s landscapes present a different side of an artist who is best known for painting religious, mythological or classical subjects on commission. This room assembles a group of the artist’s landscapes, which he most probably painted for his own pleasure and that of a select group of friends. This meant that they remained largely hidden from view during Rubens’s lifetime. Soon after his death they became more widely known, and many eventually found their way to Britain, where they were greatly admired by artists such as Gainsborough and Constable. The former’s Watering Place and the latter’s Hay Wain (both in Room 34) are unthinkable without Rubens’s example.</details>
@@ -438,6 +467,7 @@
                                                                                         </contents>
                                                                                       </Main.CoolNode>
                                                                                     </attachedNodes>
+                                                                                    <nodeValue>2147483647</nodeValue>
                                                                                     <contents class="Main.Room">
                                                                                       <name>Room 21: Van Dyck</name>
                                                                                       <details>Anthony van Dyck was a child prodigy who was already an accomplished artist by his mid-teens. After an apprenticeship with Hendrick van Balen, he entered Rubens’s studio to assist the master in painting biblical and mythological subjects, but Van Dyck is best known today for the grace and exuberance of his later portraits. Between 1621 and 1627 he made Italy his home, where he received important commissions from the aristocracy of Genoa and the bishops and cardinals of Rome. Back in Antwerp he was equally in demand as a portrait painter. Like Rubens, Van Dyck ran a large workshop in order to meet high demand, often leaving the less important parts of his portraits to studio assistants.</details>
@@ -448,6 +478,7 @@
                                                                                   </Main.CoolNode>
                                                                                   <Main.CoolNode reference="../Main.CoolNode[4]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]"/>
                                                                                 </attachedNodes>
+                                                                                <nodeValue>2147483647</nodeValue>
                                                                                 <contents class="Main.Room">
                                                                                   <name>Room 18: Rubens</name>
                                                                                   <details>Peter Paul Rubens, the most celebrated Flemish painter of Western art, was actually born in Germany to parents who had fled Antwerp because of their Protestant beliefs. In 1587 his family returned to Antwerp, where Rubens eventually converted to Catholicism. He had an enormously successful career as a learned painter of religious works expressing the Catholic reaction to the Reformation (the Counter-Reformation). Rubens was equally successful as a painter to the courts of Europe, including England, and on occasion worked as a diplomat. The ingenuity of his compositions, brilliant use of colour and his superb draughtsmanship made Rubens eminently suited to the task of dazzling audiences with the message of the Counter-Reformation. But he was equally determined to convey the stories and morals of Classical Antiquity.</details>
@@ -457,6 +488,7 @@
                                                                                 </contents>
                                                                               </Main.CoolNode>
                                                                             </attachedNodes>
+                                                                            <nodeValue>2147483647</nodeValue>
                                                                             <contents class="Main.Room">
                                                                               <name>Room 22: Rembrandt</name>
                                                                               <details>Rembrandt van Rijn aspired to be a painter of biblical and mythological subjects, which were held in higher regard than portraits. But portraiture was more profitable, and after settling in Amsterdam around 1631, Rembrandt enjoyed enormous success as a portrait painter. From the middle of the 17th century, his increasingly rough and brooding style of painting was out of step with a new fashion for smoothly painted and more evenly lit works. He nevertheless continued to receive portrait commissions from some of the most prominent people in the country, who remained impressed with his unparalleled skill in conveying character.</details>
@@ -467,6 +499,7 @@
                                                                           </Main.CoolNode>
                                                                           <Main.CoolNode reference="../../../.."/>
                                                                         </attachedNodes>
+                                                                        <nodeValue>2147483647</nodeValue>
                                                                         <contents class="Main.Room">
                                                                           <name>Room 23: Dutch portraiture</name>
                                                                           <details>Dutch citizens from the newly affluent mercantile class were as keen to commission portraits of themselves and their families as were their aristocratic counterparts. In accordance with Calvinist tradition, Dutch sitters were mindful not to come across as too ostentatious, wearing predominantly black clothing and often posing in neutral surroundings. Their portraits therefore lack the showiness seen in Baroque portraits by artists such as Van Dyck (see Room 21). Yet the discerning observer would have understood that the refined if muted elegance of the sitter’s clothing signalled their high social status. What these portraits lost in swagger, they often gained in their vivid characterisation and intense focus.</details>
@@ -477,6 +510,7 @@
                                                                       </Main.CoolNode>
                                                                       <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]"/>
                                                                     </attachedNodes>
+                                                                    <nodeValue>2147483647</nodeValue>
                                                                     <contents class="Main.Room">
                                                                       <name>Room 24: International ambitions</name>
                                                                       <details>In spite of the decline in religious commissions in the Protestant Northern Netherlands, biblical or mythological subjects – traditionally considered the most elevated genre of painting – remained popular. The pan-European style of Mannerism, characterised by the exploration of the contorted human figure in daring poses, was also influential in the northern Netherlands, as seen in the works of Cornelis van Haarlem, Hendrik Goltzius and Joachim Wtewael. Artists from the predominantly Catholic city of Utrecht followed in the footsteps of Caravaggio, whose celebrated works they had studied during trips to Italy.</details>
@@ -486,6 +520,7 @@
                                                                     </contents>
                                                                   </Main.CoolNode>
                                                                 </attachedNodes>
+                                                                <nodeValue>2147483647</nodeValue>
                                                                 <contents class="Main.Room">
                                                                   <name>Room 25: A New Art For A New Nation (2)</name>
                                                                   <details>Room 25 expands on the theme of Room 28; displaying prime examples of what were newly independent artistic genres, including landscape, still life, portraiture and scenes of 17th-century Dutch domestic life.</details>
@@ -496,6 +531,7 @@
                                                               </Main.CoolNode>
                                                               <Main.CoolNode reference="../../../.."/>
                                                             </attachedNodes>
+                                                            <nodeValue>2147483647</nodeValue>
                                                             <contents class="Main.Room">
                                                               <name>Room 28: A New Art For A New Nation (1)</name>
                                                               <details>The Dutch Republic in the 17th century witnessed one of the most powerfully creative periods in Western art. In the late 16th century, the predominantly Protestant northern Netherlands declared itself independent from Catholic Spanish rule. A new art was born as artists increasingly produced works not on commission but for a speculative market determined by the demands of a new class of prosperous citizens.</details>
@@ -506,6 +542,7 @@
                                                           </Main.CoolNode>
                                                           <Main.CoolNode reference="../../../.."/>
                                                         </attachedNodes>
+                                                        <nodeValue>2147483647</nodeValue>
                                                         <contents class="Main.Room">
                                                           <name>Room 27</name>
                                                           <details>de Hooch, Saenredam, Vermeer</details>
@@ -518,6 +555,7 @@
                                                       <Main.CoolNode reference="../../../../../../../../../.."/>
                                                       <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]"/>
                                                     </attachedNodes>
+                                                    <nodeValue>2147483647</nodeValue>
                                                     <contents class="Main.Room">
                                                       <name>Room 26</name>
                                                       <details>Brueghel the Elder, van der Heyden, van de Velde</details>
@@ -528,6 +566,7 @@
                                                   </Main.CoolNode>
                                                   <Main.CoolNode reference="../../../.."/>
                                                 </attachedNodes>
+                                                <nodeValue>2147483647</nodeValue>
                                                 <contents class="Main.Room">
                                                   <name>Room 17a</name>
                                                   <details>Room Closed</details>
@@ -538,6 +577,7 @@
                                               </Main.CoolNode>
                                               <Main.CoolNode reference="../../../.."/>
                                             </attachedNodes>
+                                            <nodeValue>2147483647</nodeValue>
                                             <contents class="Main.Room">
                                               <name>Room 17</name>
                                               <details>Altdorfer, Rottenhammer, Wertinger</details>
@@ -547,6 +587,7 @@
                                             </contents>
                                           </Main.CoolNode>
                                         </attachedNodes>
+                                        <nodeValue>2147483647</nodeValue>
                                         <contents class="Main.Room">
                                           <name>Room 16</name>
                                           <details>Cranach the Elder, Huber and Seisenegger</details>
@@ -559,6 +600,7 @@
                                       <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode"/>
                                       <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode"/>
                                     </attachedNodes>
+                                    <nodeValue>2147483647</nodeValue>
                                     <contents class="Main.Room">
                                       <name>Room 15</name>
                                       <details>Room 15 is part of art route B and links Room 9 with Room 18 (Rubens) and on to our Dutch paintings including works by and Rembrandt and Van Dyck.</details>
@@ -593,6 +635,7 @@
                                                                   <Main.CoolNode reference="../../../../../../../../../../../../../../../.."/>
                                                                   <Main.CoolNode reference="../../../.."/>
                                                                 </attachedNodes>
+                                                                <nodeValue>2147483647</nodeValue>
                                                                 <contents class="Main.Room">
                                                                   <name>Room 52: Siena, 1300–1450</name>
                                                                   <details>In the late Middle Ages the Republic of Siena was one of Europe’s smallest but wealthiest states. Siena’s political independence, however, was precarious. Its people believed it was the result of the decisive intervention of the Virgin Mary in a battle against Florence, Siena’s deadliest enemy, in 1260.</details>
@@ -611,6 +654,7 @@
                                                                         <attachedNodes>
                                                                           <Main.CoolNode reference="../../../.."/>
                                                                         </attachedNodes>
+                                                                        <nodeValue>2147483647</nodeValue>
                                                                         <contents class="Main.Room">
                                                                           <name>Room 56: Venice after 1500</name>
                                                                           <details>In the early 1500s, painting in Venice witnessed a fervour of experimentation, as artists developed distinctive approaches to light and colour, emphasising atmosphere, mood and the sense of physical presence.</details>
@@ -626,6 +670,7 @@
                                                                               <Main.CoolNode reference="../../../../../../../../../../../.."/>
                                                                               <Main.CoolNode reference="../../../.."/>
                                                                             </attachedNodes>
+                                                                            <nodeValue>2147483647</nodeValue>
                                                                             <contents class="Main.Room">
                                                                               <name>Room 58: Botticelli and Filippino Lippi</name>
                                                                               <details>Sandro Botticelli was among the most sought-after painters in his native Florence in the last three decades of the fifteenth century. A versatile and creative artist, he produced paintings of many types from large scale altarpieces and mythological scenes, to smaller devotional images and portraits. Filippino Lippi was the son of Botticelli’s teacher, Fra Filippo Lippi. Following the death of his father when he was still a boy, Filippino entered Botticelli’s workshop. </details>
@@ -642,6 +687,7 @@
                                                                                   <Main.CoolNode reference="../../../../../../../../../../../../../../../.."/>
                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                 </attachedNodes>
+                                                                                <nodeValue>2147483647</nodeValue>
                                                                                 <contents class="Main.Room">
                                                                                   <name>Room 64: Beyond the Netherlands</name>
                                                                                   <details>Paintings from the Netherlands were exported all over Europe in the 15th century. Painters trained in the Netherlandish use of oil paint were much in demand for their ability to represent dazzling effects of light, penetrating portraits, and lyrical landscapes.</details>
@@ -654,6 +700,7 @@
                                                                                 <attachedNodes>
                                                                                   <Main.CoolNode reference="../../../.."/>
                                                                                 </attachedNodes>
+                                                                                <nodeValue>2147483647</nodeValue>
                                                                                 <contents class="Main.Room">
                                                                                   <name>Room 66: Leonardo da Vinci at the National Gallery</name>
                                                                                   <details>Leonardo da Vinci is one of the towering figures of Western art. Born in humble circumstances, Leonardo ended his life as ‘first painter and engineer’ to the French King Francis I. His achievements as an artist, architect, designer, theorist, engineer and scientist are little less than astonishing. Though many of his works were never finished, Leonardo influenced generations of artists. Leonardo trained as a painter and sculptor in the Florentine workshop of Andrea del Verrocchio. There he perfected the exceptional talent for drawing that was key to his artistic and intellectual endeavours.</details>
@@ -663,6 +710,7 @@
                                                                                 </contents>
                                                                               </Main.CoolNode>
                                                                             </attachedNodes>
+                                                                            <nodeValue>2147483647</nodeValue>
                                                                             <contents class="Main.Room">
                                                                               <name>Room 65: Southern Germany and Austria</name>
                                                                               <details>Painters in southern German and Austria collaborated with sculptors to produce spectacular large altarpieces with moveable shutters. One of the greatest specialists in such work was Michael Pacher from the Tyrol. The small devotional painting of the Virgin and Saints attributed to him reflects the daring illusionistic effects he achieved in large-scale altarpieces.</details>
@@ -673,6 +721,7 @@
                                                                           </Main.CoolNode>
                                                                           <Main.CoolNode reference="../../../.."/>
                                                                         </attachedNodes>
+                                                                        <nodeValue>2147483647</nodeValue>
                                                                         <contents class="Main.Room">
                                                                           <name>Room 57: Ferrara and Bologna</name>
                                                                           <details>The cities of Ferrara and Bologna flourished as centres of artistic excellence from the late fifteenth and throughout the following century. In Ferrara, the ruling Este dukes cultivated the idiosyncratic talents of several generations of painters, employing a succession of official court artists. The first was Cosme Tura, whose paintings are characterized by melancholic figures, angular draperies and fantastical details. His Virgin and Child Enthroned on display in this room became a blueprint for altarpiece design in the region. </details>
@@ -682,6 +731,7 @@
                                                                         </contents>
                                                                       </Main.CoolNode>
                                                                     </attachedNodes>
+                                                                    <nodeValue>2147483647</nodeValue>
                                                                     <contents class="Main.Room">
                                                                       <name>Room 55: Venice and the Veneto, 1460–1510</name>
                                                                       <details>During the second half of the 15th century, the Republic of Venice was one of Europe’s most important and populous centres. Venice’s merchants and navy controlled almost all Western trade in the Eastern Mediterranean. In completion with the Ottoman Turks, who had conquered Constantinople in 1453, Venice laid claim to the former territories of the Byzantine Empire.</details>
@@ -691,6 +741,7 @@
                                                                     </contents>
                                                                   </Main.CoolNode>
                                                                 </attachedNodes>
+                                                                <nodeValue>2147483647</nodeValue>
                                                                 <contents class="Main.Room">
                                                                   <name>Room 54: Mantegna and Crivelli</name>
                                                                   <details>Andrea Mantegna’s unrivalled ability to bring the lost worlds of ancient Greece and Rome to life brought him enduring fame. Born into relative poverty, Mantegna spent over 45 years as court artist to the Gonzaga family, the sophisticated rulers of Mantua. His powers of invention, mastery of illusionism and exceptional talent as a draughtsman dazzled his patrons and his fellow artists.</details>
@@ -701,6 +752,7 @@
                                                               </Main.CoolNode>
                                                               <Main.CoolNode reference="../../../.."/>
                                                             </attachedNodes>
+                                                            <nodeValue>2147483647</nodeValue>
                                                             <contents class="Main.Room">
                                                               <name>Room 53: Florence and Beyond, 1440–1470</name>
                                                               <details>In the middle decades of the 15th century, artists in Florence and its surrounding territories diversified their production to meet the desires of patrons seeking new kinds of art to adorn their residences. Uccello’s Battle of San Romano, which celebrated a recent military victory, was part of an exceptionally ambitious commission for the Bartolini Salimbeni family palace. Smaller works treating ancient of mythological subjects also had a commemorative function, often marking an important event such as a wedding or a birth.</details>
@@ -711,6 +763,7 @@
                                                           </Main.CoolNode>
                                                           <Main.CoolNode reference="../Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode"/>
                                                         </attachedNodes>
+                                                        <nodeValue>2147483647</nodeValue>
                                                         <contents class="Main.Room">
                                                           <name>Room 59: Florence, 1460–1500</name>
                                                           <details>The baton of power passed between four generations of Medici in Florence in the second half of the fifteenth century. They even survived a dramatic attempted coup in 1478, which saw the assassination of Giuliano, beloved brother of Lorenzo the Magnificent. The family’s grip on power was only loosened following Lorenzo’s death in 1492. His son and heir was soon forced into exile and the republic was restored.</details>
@@ -722,6 +775,7 @@
                                                       <Main.CoolNode reference="../../../.."/>
                                                       <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]"/>
                                                     </attachedNodes>
+                                                    <nodeValue>2147483647</nodeValue>
                                                     <contents class="Main.Room">
                                                       <name>Room 63: 15th-century Netherlandish painting</name>
                                                       <details>Painters in the Low Countries in the early 15th century such as Jan van Eyck and Rogier van der Weyden achieved a technical mastery of the medium of oil paint which they deployed with extraordinarily skill. It made them – and their successors – famous throughout Europe.</details>
@@ -731,6 +785,7 @@
                                                     </contents>
                                                   </Main.CoolNode>
                                                 </attachedNodes>
+                                                <nodeValue>2147483647</nodeValue>
                                                 <contents class="Main.Room">
                                                   <name>Room 62: Cologne and north-western Germany</name>
                                                   <details>Cologne was one of the most prosperous cities in 15th-century Germany. Its numerous churches were filled with paintings produced by its large population of painters. Some of these came from other towns to work in Cologne: Stephan Lochner, whose name is associated with a charming and technically accomplished style, was originally from southern Germany. The witty painter, the Master
@@ -741,6 +796,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                                                 </contents>
                                               </Main.CoolNode>
                                             </attachedNodes>
+                                            <nodeValue>2147483647</nodeValue>
                                             <contents class="Main.Room">
                                               <name>Room 61</name>
                                               <details>Room Closed</details>
@@ -751,6 +807,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                                           </Main.CoolNode>
                                           <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode"/>
                                         </attachedNodes>
+                                        <nodeValue>2147483647</nodeValue>
                                         <contents class="Main.Room">
                                           <name>Room 60: Florentine Altarpieces about 1350 – about 1460 </name>
                                           <details>Altarpieces were among the most ambitious works of art made in Florence during the period known today as the Early Renaissance. Standing on the altars of churches, private chapels and convents, they provided a backdrop for the celebration of Mass, when the bread and wine are consecrated. Altarpieces were commissioned by a wide variety of patrons, from wealthy citizens and high-ranking clerics, to religious institutions and corporate groups such as guilds.</details>
@@ -761,6 +818,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                                       </Main.CoolNode>
                                       <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode"/>
                                     </attachedNodes>
+                                    <nodeValue>2147483647</nodeValue>
                                     <contents class="Main.Room">
                                       <name>Room 51: Italy, 1250–1350</name>
                                       <details>The earliest works in the National Gallery’s collection are displayed in this room. Like most paintings of this period, they were intended for Christian worship.They were painted as altarpieces, to decorate the fronts of altars, or as crucifixes to hang in church interiors. Churchmen and women, and members of the social elite, owned small images of Christian subjects to stimulate private prayer and devotion; an outstanding example of which is The Wilton Diptych.</details>
@@ -770,6 +828,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                                     </contents>
                                   </Main.CoolNode>
                                 </attachedNodes>
+                                <nodeValue>2147483647</nodeValue>
                                 <contents class="Main.Room">
                                   <name>Room 9: Venice 1530-1600</name>
                                   <details>Venetian painting in this period was dominated by Titian (Tiziano) and three family workshops, active both locally and internationally: those of Jacopo Tintoretto, Paolo Veronese and Jacopo Bassano. Veronese was renowned for his harmonious and decorative colour and brilliant illusionistic effects. His paintings won Titian’s praise and he attracted many commissions from the Venetian state, including paintings for the Doge’s Palace.</details>
@@ -780,6 +839,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                               </Main.CoolNode>
                               <Main.CoolNode reference="../../../.."/>
                             </attachedNodes>
+                            <nodeValue>2147483647</nodeValue>
                             <contents class="Main.Room">
                               <name>Room 10: The sacred and profane in sixteenth-century Italian art</name>
                               <details>Representing some of the leading artists working in central and northern sixteenth-century Italy, the paintings in this room show the growing interest in this period for using art as a means of creative and intellectual expression. The prominence of sacred images for inspiring devotion remained hugely important, but artists also embraced the visual possibilities of secular subject matter drawn from mythological and classical sources. In this room, examples of both types of art can be seen by artists such as Bronzino, Correggio and Titian.</details>
@@ -791,6 +851,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                           <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[3]"/>
                           <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode"/>
                         </attachedNodes>
+                        <nodeValue>2147483647</nodeValue>
                         <contents class="Main.Room">
                           <name>Room 11: Veronese&apos;s &apos;Four Allegories of Love&apos;</name>
                           <details>The four paintings in this room are &apos;Allegories of Love&apos; by Paolo Veronese, each concentrating on a specific aspect. In turn, they seem to deal with Unfaithfulness, ‘Scorn, Respect and Happy Union, although their precise meanings remain unclear and have been much debated. The costumes and hairstyles may indicate a date in the 1570s.</details>
@@ -800,6 +861,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                         </contents>
                       </Main.CoolNode>
                     </attachedNodes>
+                    <nodeValue>2147483647</nodeValue>
                     <contents class="Main.Room">
                       <name>Room 5</name>
                       <details>Room Closed</details>
@@ -810,6 +872,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
                   </Main.CoolNode>
                   <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode"/>
                 </attachedNodes>
+                <nodeValue>2147483647</nodeValue>
                 <contents class="Main.Room">
                   <name>Room 4</name>
                   <details>Room Closed</details>
@@ -824,6 +887,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
               <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]"/>
               <Main.CoolNode reference="../Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[6]"/>
             </attachedNodes>
+            <nodeValue>2147483647</nodeValue>
             <contents class="Main.Room">
               <name>Room 2</name>
               <details>Room Closed</details>
@@ -838,6 +902,7 @@ of the Saint Bartholomew Altarpiece, a native of the northern Netherlands, produ
           <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[6]"/>
           <Main.CoolNode reference="../Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode[2]/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode/attachedNodes/Main.CoolNode[4]/attachedNodes/Main.CoolNode[3]/attachedNodes/Main.CoolNode[2]"/>
         </attachedNodes>
+        <nodeValue>2147483647</nodeValue>
         <contents class="Main.Room">
           <name>Room 1: Bellotto: The Königstein Views Reunited</name>
           <details>Bernardo Bellotto (1722–1780) painted this historic site – a stronghold located approximately 25 miles south-east of Dresden, in the picturesque Elbe valley – not just once, but five times. In this exhibition, we reunite these five monumental views, which includes our recently acquired view from the north, for the first time in more than 250 years.</details>

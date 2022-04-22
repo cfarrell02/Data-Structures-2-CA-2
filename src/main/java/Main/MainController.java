@@ -57,6 +57,7 @@ public class MainController {
         }
 
 
+
         for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
             source.getItems().add(room.getValue().getContents().getName());
         }
@@ -273,12 +274,12 @@ public class MainController {
     }
 
     public static  CostedPath findCheapestPathDijkstra(CoolNode<Room> startNode, Room lookingfor){
+
         CostedPath cp=new CostedPath(); //Create result object for cheapest path
         List<CoolNode<Room>> encountered=new ArrayList<>(), unencountered=new ArrayList<>(); //Create encountered/unencountered lists
         startNode.setNodeValue(0); //Set the starting node value to zero
         unencountered.add(startNode); //Add the start node as the only value in the unencountered list to start
         CoolNode<Room> currentNode;
-        System.out.println(1);
         do{ //Loop until unencountered list is empty
             currentNode=unencountered.remove(0); //Get the first unencountered node (sorted list, so will have lowest value)
             encountered.add(currentNode); //Record current node in encountered list
@@ -295,7 +296,6 @@ public class MainController {
 //current node and the difference in node values is the cost of the edge -> found path node!
 
                                 cp.getList().add(0,n); //Add the identified path node to the front of the result list
-                                System.out.println(n.getContents().getName());
                                 currentNode=n; //Move the currentNode reference back to the identified path node
                                 foundPrevPathNode=true; //Set the flag to break the outer loop
                                 break; //We've found the correct previous path node and moved the currentNode reference
@@ -312,7 +312,7 @@ public class MainController {
 //We're not at the goal node yet, so...
             for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
                 if(!encountered.contains(e)) { //If the node it leads to has not yet been encountered (i.e. processed)
-                    e.setNodeValue(Integer.min(e.getNodeValue(), (int) (currentNode.getNodeValue()+Utilities.distance
+                    e.setNodeValue(Integer.min(e.getNodeValue(), (currentNode.getNodeValue()+Utilities.distance
                                                 (currentNode.getContents().getPixelX(),currentNode.getContents().getPixelY(),
                                                         e.getContents().getPixelX(),e.getContents().getPixelY()))));//Update the node value at the end
 //of the edge to the minimum of its current value or the total of the current node's value plus the cost of the edge
@@ -322,7 +322,7 @@ public class MainController {
         }while(!unencountered.isEmpty());
         return null; //No path found, so return null
     }
-    public void save(int[] savedItem, String fileName) throws IOException {
+    public void save(Map<Integer,CoolNode<Room>> savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter(fileName));
         out.writeObject(savedItem);
