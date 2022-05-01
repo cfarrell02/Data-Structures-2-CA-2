@@ -23,13 +23,15 @@ public class MainController {
     @FXML
     public ComboBox<String> source,destination;
     @FXML
+    public ChoiceBox<String> algorithmType;
+    @FXML
     public RadioButton quickest,scenic,multiple;
     @FXML
     public Slider routeLimit;
     @FXML
     Image map, blackAndWhite;
     public Map<Integer,CoolNode<Pixel>> pixels;
-    int [] blackAndWhiteArray ;
+    int [] blackAndWhiteArray;
     public Map<Integer,CoolNode<Room>> rooms;
     public List<List<CoolNode<Room>>> paths;
     @FXML
@@ -45,6 +47,8 @@ public class MainController {
         mainView.setImage(map);
         pixels = new HashMap<>();
         rooms = new HashMap<>();
+        algorithmType.getItems().add("Dijkstra's Algorithm");
+        algorithmType.getItems().add("Breadth First Search Algorithm");
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
@@ -117,6 +121,10 @@ public class MainController {
             if(route!=null)
             drawRoute(route);
         });
+        quickest.selectedProperty().addListener(e->{
+            if(quickest.isSelected()) algorithmType.setDisable(false);
+            else algorithmType.setDisable(true);
+        });
 
 //        mainView.setOnMouseMoved(e -> {
 //            WritableImage wr = new WritableImage(map.getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
@@ -147,21 +155,22 @@ public class MainController {
             }
         }else{
 
-//            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
+            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
 //            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
-            List<CoolNode<Room>> route = findCheapestPathDijkstra(getRoom(source.getValue()),getRoom(destination.getValue()).getContents()).getList();
-            drawRoute(route);
-            //List<Integer> route = findPathBreadthFirst(sourceRoom.getPixelY()*width+sourceRoom.getPixelX(),destinationRoom.getPixelY()*width+destinationRoom.getPixelX());
-//            mainView.setImage(map);
-//            for(CoolNode<Room> pixel:route){
-//                WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
-//                Utilities.drawLine()
-//                wr.getPixelWriter().setColor(pixel%width,pixel/width,Color.BLUE);
-//                mainView.setImage(wr);
-//            }
+            if(algorithmType.getValue().equals("Dijkstra's Algorithm")) {
+                List<CoolNode<Room>> route = findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents()).getList();
+                drawRoute(route);
+            }else{
+                List<Integer> route = findPathBreadthFirst(getRoom(source.getValue()).getContents().getPixelY()*width+getRoom(source.getValue()).getContents().getPixelX(),
+                        getRoom(destination.getValue()).getContents().getPixelY()*width+getRoom(destination.getValue()).getContents().getPixelX());
+               for(int i: route){
+                   WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
+                   wr.getPixelWriter().setColor(i%width,i/width,Color.RED);
+                   mainView.setImage(wr);
+               }
+            }
 
-//           route = findPathBreadthFirst(new ArrayList<>(),null,getRoom(destination.getValue()));
-//            drawRoute(route);
+
 
         }
 
@@ -253,7 +262,7 @@ public class MainController {
         if(agenda.isEmpty()) return null; //Search failed
         List<Integer> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
         Integer currentNode=nextPath.get(0); //The first item in the next path is the current node
-        System.out.println(currentNode);
+        //System.out.println(currentNode);
         WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
         wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
         mainView.setImage(wr);
