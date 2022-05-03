@@ -19,7 +19,7 @@ public class MainController {
     @FXML
     public ImageView mainView;
     @FXML
-    public ListView<String> mainList, waypoints,routeDetails;
+    public ListView<String> mainList, waypoints,exclusions,routeDetails;
     @FXML
     public ComboBox<String> source,destination;
     @FXML
@@ -49,6 +49,7 @@ public class MainController {
         rooms = new HashMap<>();
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
+        algorithmType.setValue("Dijkstra's Algorithm");
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
@@ -92,7 +93,7 @@ public class MainController {
         }
 
 
-        waypoints.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+       //waypoints.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 //        Adds listener to the source to update rooms
         source.valueProperty().addListener(e -> {
@@ -146,6 +147,13 @@ public class MainController {
         mainView.setImage(map);
         if(multiple.isSelected()) {
             paths = findAllPathsDepthFirst(getRoom(source.getValue()), null, getRoom(destination.getValue()));
+            List<List<CoolNode<Room>>> temp = new ArrayList<>();
+            for(List<CoolNode<Room>> path:paths){
+                if(path.contains(getRoom(waypoints.getSelectionModel().getSelectedItem()))){
+                    temp.add(path);
+                }
+            }
+            paths = temp;
             int limit = (int) routeLimit.getValue();
             if (paths.size() > limit)
                 paths = paths.subList(0, limit);
@@ -263,9 +271,9 @@ public class MainController {
         List<Integer> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
         Integer currentNode=nextPath.get(0); //The first item in the next path is the current node
         //System.out.println(currentNode);
-        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
-        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
-        mainView.setImage(wr);
+//        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
+//        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
+//        mainView.setImage(wr);
         if(currentNode.equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
         if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
       //  encountered list
