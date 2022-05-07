@@ -93,7 +93,7 @@ public class MainController {
         }
 
 
-       //waypoints.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+       //waypoints.getSelectionModel().setSelectionMod e(SelectionMode.MULTIPLE);
 
 //        Adds listener to the source to update rooms
         source.valueProperty().addListener(e -> {
@@ -265,26 +265,33 @@ public class MainController {
         return resultPath;
     }
     //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
-    public List<Integer> findPathBreadthFirst(List<List<Integer>> agenda,
-                                                                List<Integer> encountered, Integer lookingfor){
+    public List<Integer> findPathBreadthFirst(List<List<Integer>> agenda, List<Integer> encountered, Integer lookingfor){
+
         if(agenda.isEmpty()) return null; //Search failed
         List<Integer> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
         Integer currentNode=nextPath.get(0); //The first item in the next path is the current node
-        //System.out.println(currentNode);
+        
+
+
+            if (currentNode.equals(lookingfor))
+                return nextPath; //If that's the goal, we've found our path (so return it)
+            if (encountered == null)
+                encountered = new ArrayList<>(); //First node considered in search so create new (empty)
+            //  encountered list
+        if(!encountered.contains(currentNode)) {
+//            System.out.println(currentNode);
 //        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
 //        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
 //        mainView.setImage(wr);
-        if(currentNode.equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
-        if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
-      //  encountered list
-        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-        int[] directions = {1,-1,(int) map.getWidth(),-((int) map.getWidth())};
-        for(int direction:directions) {//For each adjacent node
-            int adjNode = currentNode+direction;
-            if (blackAndWhiteArray[adjNode]!=0&&!encountered.contains(adjNode)) { //If it hasn't already been encountered
-                List<Integer> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
-                newPath.add(0, adjNode); //And add the adjacent node to the front of the new copy
-                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+            encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
+            int[] directions = {1, -1, (int) map.getWidth(), -((int) map.getWidth())};
+            for (int direction : directions) {//For each adjacent node
+                int adjNode = currentNode + direction;
+                if (blackAndWhiteArray[adjNode] != 0 && !encountered.contains(adjNode)) { //If it hasn't already been encountered
+                    List<Integer> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
+                    newPath.add(0, adjNode); //And add the adjacent node to the front of the new copy
+                    agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+                }
             }
         }
         return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
