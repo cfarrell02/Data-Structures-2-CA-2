@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -30,6 +31,10 @@ public class MainController {
     public Slider routeLimit;
     @FXML
     Image map, blackAndWhite;
+    @FXML
+    TextField sourceTextField, destinationTextField;
+    @FXML
+    Button sourceButton, destinationButton;
     public Map<Integer,CoolNode<Pixel>> pixels;
     int [] blackAndWhiteArray;
     public Map<Integer,CoolNode<Room>> rooms;
@@ -37,6 +42,9 @@ public class MainController {
     @FXML
     public AnchorPane leftPane, rightPane;
     //public List<CoolNode<Room>> route;
+
+    TextField currentTextField = null;
+
 
 
     @FXML
@@ -137,6 +145,9 @@ public class MainController {
 //            }
 //            mainView.setImage(wr);
 //        });
+
+       source.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
+       destination.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
 
     }
 
@@ -349,6 +360,68 @@ public class MainController {
         }while(!unencountered.isEmpty());
         return null; //No path found, so return null
     }
+
+    public void selectPixel(MouseEvent e){
+        int pixelX, pixelY;
+        pixelX = (int) e.getX();
+        pixelY = (int) e.getY();
+
+        sourceButton.setOnAction(event -> {
+            currentTextField = sourceTextField;
+        });
+        destinationButton.setOnAction(event -> {
+            currentTextField = destinationTextField;
+        });
+
+        if (currentTextField == sourceTextField){
+            sourceTextField.setText("X = " + pixelX + " Y = " + pixelY);
+        } else if(currentTextField == destinationTextField){
+            destinationTextField.setText("X = " + pixelX + " Y = " + pixelY);
+        }
+        currentTextField = null;
+    }
+
+
+
+    public void populateTextFields() {
+
+        if (algorithmType.getValue() == "Breadth First Search Algorithm") {
+            source.valueProperty().addListener(e -> {
+                if (source.getValue() != null) {
+                    int pixelX, pixelY;
+
+                    String sourceRoomName = source.getValue();
+                    CoolNode<Room> room = getRoom(sourceRoomName);
+
+                    pixelX = room.getContents().getPixelX();
+                    pixelY = room.getContents().getPixelY();
+                    // System.out.println("X = " + pixelX + " Y = " + pixelY);
+
+                    sourceTextField.setText("X = " + pixelX + " Y = " + pixelY);
+                }
+            });
+
+            destination.valueProperty().addListener(e -> {
+                int pixelX, pixelY;
+
+                if (destination.getValue() != null) {
+                    String destinationRoomName = destination.getValue();
+                    CoolNode<Room> room = getRoom(destinationRoomName);
+
+                    pixelX = room.getContents().getPixelX();
+                    pixelY = room.getContents().getPixelY();
+
+                    destinationTextField.setText("X = " + pixelX + " Y = " + pixelY);
+                } else destinationTextField.clear();
+            });
+
+
+        }
+    }
+
+   
+
+
     public void save(Map<Integer,CoolNode<Room>> savedItem, String fileName) throws IOException {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter(fileName));
