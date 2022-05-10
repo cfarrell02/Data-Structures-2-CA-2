@@ -48,6 +48,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>17-ea+11</version>
         </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.18</version>
+        </dependency>
     </dependencies>
 
     <build>
