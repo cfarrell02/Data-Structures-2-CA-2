@@ -145,24 +145,27 @@ public class MainController {
     @FXML
     void calculateRoute(){
         mainView.setImage(map);
+        mainList.getItems().clear();
         if(multiple.isSelected()) {
             paths = findAllPathsDepthFirst(getRoom(source.getValue()), null, getRoom(destination.getValue()));
             List<List<CoolNode<Room>>> temp = new ArrayList<>();
-            for(List<CoolNode<Room>> path:paths){
-                if(path.contains(getRoom(waypoints.getSelectionModel().getSelectedItem()))){
-                    temp.add(path);
+            if(!waypoints.getSelectionModel().isEmpty()) {
+                for (List<CoolNode<Room>> path : paths) {
+                    if (path.contains(getRoom(waypoints.getSelectionModel().getSelectedItem()))) {
+                        temp.add(path);
+                    }
                 }
+                paths = temp;
             }
-            paths = temp;
+            paths.sort(Comparator.comparing(List::size));
             int limit = (int) routeLimit.getValue();
             if (paths.size() > limit)
                 paths = paths.subList(0, limit);
-            mainList.getItems().clear();
             for (int i = 0; i < paths.size(); ++i) {
                 mainList.getItems().add("Route: " + (i + 1));
             }
         }else{
-
+            mainList.getItems().clear();
             int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
 //            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
             if(algorithmType.getValue().equals("Dijkstra's Algorithm")) {
@@ -279,7 +282,7 @@ public class MainController {
                 encountered = new ArrayList<>(); //First node considered in search so create new (empty)
             //  encountered list
         if(!encountered.contains(currentNode)) {
-//            System.out.println(currentNode);
+      //      System.out.println(currentNode);
 //        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
 //        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
 //        mainView.setImage(wr);
