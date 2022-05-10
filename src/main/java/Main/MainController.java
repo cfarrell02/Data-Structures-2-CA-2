@@ -20,7 +20,7 @@ public class MainController {
     @FXML
     public ImageView mainView;
     @FXML
-    public ListView<String> mainList, waypoints,routeDetails;
+    public ListView<String> mainList, waypoints,exclusions,routeDetails;
     @FXML
     public ComboBox<String> source,destination;
     @FXML
@@ -57,6 +57,7 @@ public class MainController {
         rooms = new HashMap<>();
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
+        algorithmType.setValue("Dijkstra's Algorithm");
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
@@ -100,7 +101,7 @@ public class MainController {
         }
 
 
-        waypoints.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+       //waypoints.getSelectionModel().setSelectionMod e(SelectionMode.MULTIPLE);
 
 //        Adds listener to the source to update rooms
         source.valueProperty().addListener(e -> {
@@ -155,17 +156,27 @@ public class MainController {
     @FXML
     void calculateRoute(){
         mainView.setImage(map);
+        mainList.getItems().clear();
         if(multiple.isSelected()) {
             paths = findAllPathsDepthFirst(getRoom(source.getValue()), null, getRoom(destination.getValue()));
+            List<List<CoolNode<Room>>> temp = new ArrayList<>();
+            if(!waypoints.getSelectionModel().isEmpty()) {
+                for (List<CoolNode<Room>> path : paths) {
+                    if (path.contains(getRoom(waypoints.getSelectionModel().getSelectedItem()))) {
+                        temp.add(path);
+                    }
+                }
+                paths = temp;
+            }
+            paths.sort(Comparator.comparing(List::size));
             int limit = (int) routeLimit.getValue();
             if (paths.size() > limit)
                 paths = paths.subList(0, limit);
-            mainList.getItems().clear();
             for (int i = 0; i < paths.size(); ++i) {
                 mainList.getItems().add("Route: " + (i + 1));
             }
         }else{
-
+            mainList.getItems().clear();
             int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
 //            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
             if(algorithmType.getValue().equals("Dijkstra's Algorithm")) {
@@ -268,26 +279,33 @@ public class MainController {
         return resultPath;
     }
     //Agenda list based breadth-first graph search returning a single reversed path (tail recursive)
-    public List<Integer> findPathBreadthFirst(List<List<Integer>> agenda,
-                                                                List<Integer> encountered, Integer lookingfor){
+    public List<Integer> findPathBreadthFirst(List<List<Integer>> agenda, List<Integer> encountered, Integer lookingfor){
+
         if(agenda.isEmpty()) return null; //Search failed
         List<Integer> nextPath=agenda.remove(0); //Get first item (next path to consider) off agenda
         Integer currentNode=nextPath.get(0); //The first item in the next path is the current node
-        //System.out.println(currentNode);
-        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
-        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
-        mainView.setImage(wr);
-        if(currentNode.equals(lookingfor)) return nextPath; //If that's the goal, we've found our path (so return it)
-        if(encountered==null) encountered=new ArrayList<>(); //First node considered in search so create new (empty)
-      //  encountered list
-        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-        int[] directions = {1,-1,(int) map.getWidth(),-((int) map.getWidth())};
-        for(int direction:directions) {//For each adjacent node
-            int adjNode = currentNode+direction;
-            if (blackAndWhiteArray[adjNode]!=0&&!encountered.contains(adjNode)) { //If it hasn't already been encountered
-                List<Integer> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
-                newPath.add(0, adjNode); //And add the adjacent node to the front of the new copy
-                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+        
+
+
+            if (currentNode.equals(lookingfor))
+                return nextPath; //If that's the goal, we've found our path (so return it)
+            if (encountered == null)
+                encountered = new ArrayList<>(); //First node considered in search so create new (empty)
+            //  encountered list
+        if(!encountered.contains(currentNode)) {
+      //      System.out.println(currentNode);
+//        WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),(int) map.getWidth(),(int) map.getHeight());
+//        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
+//        mainView.setImage(wr);
+            encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
+            int[] directions = {1, -1, (int) map.getWidth(), -((int) map.getWidth())};
+            for (int direction : directions) {//For each adjacent node
+                int adjNode = currentNode + direction;
+                if (blackAndWhiteArray[adjNode] != 0 && !encountered.contains(adjNode)) { //If it hasn't already been encountered
+                    List<Integer> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of the current/next path
+                    newPath.add(0, adjNode); //And add the adjacent node to the front of the new copy
+                    agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+                }
             }
         }
         return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
