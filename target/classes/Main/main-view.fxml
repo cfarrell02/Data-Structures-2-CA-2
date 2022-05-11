@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="770.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.MainController">
+<VBox alignment="CENTER" prefHeight="770.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.MainController">
    <children>
       <MenuBar>
         <menus>
@@ -57,11 +71,11 @@
                         <ToggleGroup fx:id="routeGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="scenic" layoutX="515.0" layoutY="106.0" mnemonicParsing="false" text="Scenic" toggleGroup="$routeGroup" />
-                  <RadioButton fx:id="multiple" layoutX="515.0" layoutY="139.0" mnemonicParsing="false" text="Multiple" toggleGroup="$routeGroup" />
+                  <RadioButton fx:id="scenic" disable="true" layoutX="516.0" layoutY="116.0" mnemonicParsing="false" text="Scenic" toggleGroup="$routeGroup" />
+                  <RadioButton fx:id="multiple" layoutX="515.0" layoutY="183.0" mnemonicParsing="false" text="Multiple" toggleGroup="$routeGroup" />
 
-                  <Label layoutX="515.0" layoutY="180.0" prefHeight="17.0" prefWidth="72.0" text="Max Routes" />
-                  <Slider fx:id="routeLimit" blockIncrement="1.0" layoutX="500.0" layoutY="215.0" max="40.0" min="1.0" prefHeight="14.0" prefWidth="98.0" value="10.0" />
+                  <Label layoutX="514.0" layoutY="209.0" prefHeight="17.0" prefWidth="72.0" text="Max Routes" />
+                  <Slider fx:id="routeLimit" blockIncrement="1.0" layoutX="494.0" layoutY="226.0" max="40.0" min="1.0" prefHeight="14.0" prefWidth="98.0" value="10.0" />
                   <AnchorPane fx:id="rightPane" layoutX="587.0" layoutY="4.0" prefHeight="258.0" prefWidth="493.0">
                      <children>
                         <ComboBox fx:id="source" layoutX="146.0" layoutY="14.0" prefHeight="26.0" prefWidth="202.0" />
@@ -77,8 +91,8 @@
                   </AnchorPane>
                   <AnchorPane fx:id="leftPane" layoutX="31.0" layoutY="18.0" prefHeight="230.0" prefWidth="351.0">
                      <children>
-                        <TextField fx:id="sourceTextField" layoutX="101.0" layoutY="44.0" />
-                        <TextField fx:id="destinationTextField" layoutX="101.0" layoutY="122.0" />
+                        <TextField fx:id="sourceTextField" editable="false" layoutX="101.0" layoutY="44.0" />
+                        <TextField fx:id="destinationTextField" editable="false" layoutX="101.0" layoutY="122.0" />
                         <Button fx:id="sourceButton" layoutX="269.0" layoutY="44.0" mnemonicParsing="false" text="Button" />
                         <Button fx:id="destinationButton" layoutX="269.0" layoutY="122.0" mnemonicParsing="false" text="Button" />
                         <Label layoutX="20.0" layoutY="48.0" text="Source Pixel" />
@@ -86,7 +100,9 @@
                         <Label layoutX="7.0" layoutY="126.0" text="Destination Pixel" />
                      </children>
                   </AnchorPane>
-                  <ChoiceBox fx:id="algorithmType" layoutX="498.0" layoutY="69.0" prefHeight="25.0" prefWidth="106.0" />
+                  <ChoiceBox fx:id="algorithmType" layoutX="493.0" layoutY="72.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Slider fx:id="scenicLimit" blockIncrement="1.0" disable="true" layoutX="498.0" layoutY="162.0" max="900.0" min="1.0" prefHeight="14.0" prefWidth="98.0" value="100.0" />
+                  <Label layoutX="482.0" layoutY="133.0" prefHeight="34.0" prefWidth="130.0" text="Room Description Size" textAlignment="CENTER" />
                </children>
             </AnchorPane>
         </items>
