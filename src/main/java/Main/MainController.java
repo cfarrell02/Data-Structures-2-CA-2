@@ -123,8 +123,7 @@ public class MainController {
             drawRoute(route);
         });
         quickest.selectedProperty().addListener(e->{
-            if(quickest.isSelected()) algorithmType.setDisable(false);
-            else algorithmType.setDisable(true);
+            algorithmType.setDisable(!quickest.isSelected());
         });
 
 //        mainView.setOnMouseMoved(e -> {
