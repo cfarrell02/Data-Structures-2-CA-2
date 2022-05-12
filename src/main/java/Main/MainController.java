@@ -36,11 +36,13 @@ public class MainController {
     public List<List<CoolNode<Room>>> paths;
     @FXML
     public AnchorPane leftPane, rightPane;
+    int[] directions;
     //public List<CoolNode<Room>> route;
 
 
     @FXML
     void initialize() throws FileNotFoundException {
+
         map = new Image(new FileInputStream("src/main/resources/main/map.png"));
         blackAndWhite = new Image(new FileInputStream("src/main/resources/main/blackandwhite.png"));
         blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
@@ -50,6 +52,7 @@ public class MainController {
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
         algorithmType.setValue("Dijkstra's Algorithm");
+        directions = new int[]{1, -1, (int) map.getWidth(), -((int) map.getWidth())};
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
@@ -173,7 +176,7 @@ public class MainController {
                         getRoom(destination.getValue()).getContents().getPixelY()*width+getRoom(destination.getValue()).getContents().getPixelX());
                for(int i: route){
                    WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
-                   wr.getPixelWriter().setColor(i%width,i/width,Color.RED);
+                   wr.getPixelWriter().setColor(i%width,i/width,Color.BLUE);
                    mainView.setImage(wr);
                }
             }
@@ -284,7 +287,7 @@ public class MainController {
 //        wr.getPixelWriter().setColor(currentNode%((int) map.getWidth()),currentNode/((int) map.getWidth()),Color.RED);
 //        mainView.setImage(wr);
             encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-            int[] directions = {1, -1, (int) map.getWidth(), -((int) map.getWidth())};
+
             for (int direction : directions) {//For each adjacent node
                 int adjNode = currentNode + direction;
                 if (blackAndWhiteArray[adjNode] != 0 && !encountered.contains(adjNode)) { //If it hasn't already been encountered
