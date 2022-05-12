@@ -48,11 +48,11 @@ public class MainController {
 
     @FXML
     void initialize() throws FileNotFoundException {
+        leftPane.setDisable(true);
         map = new Image(new FileInputStream("src/main/resources/main/map.png"));
         blackAndWhite = new Image(new FileInputStream("src/main/resources/main/blackandwhite.png"));
         blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
         mainView.setImage(map);
-        Map<Integer, CoolNode<Pixel>> pixels = new HashMap<>();
         rooms = new HashMap<>();
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
@@ -88,16 +88,7 @@ public class MainController {
 
 
 
-        for(int i = width; i<blackAndWhiteArray.length-width;++i){
-            if(blackAndWhiteArray[i]==1&&i%width!=0&&i%width!=width-1){
-                CoolNode<Pixel> pixel = new CoolNode<>(new Pixel(i,i%width,i/width));
-                if(blackAndWhiteArray[i-width]==1) pixel.connectToNodeUndirected(pixels.get(i-width));
-                if(blackAndWhiteArray[i-1]==1) pixel.connectToNodeUndirected(pixels.get(i-1));
-//                if(blackAndWhiteArray[i-width-1]==1) pixel.connectToNodeUndirected(pixels.get(i-width-1));
-//                if(blackAndWhiteArray[i-width+1]==1) pixel.connectToNodeUndirected(pixels.get(i-width+1));
-                pixels.put(i,pixel);
-            }
-        }
+
 
 
        //waypoints.getSelectionModel().setSelectionMod e(SelectionMode.MULTIPLE);
@@ -146,9 +137,12 @@ public class MainController {
 //            mainView.setImage(wr);
 //        });
 
-        DrawX(sourceTextField);
-
-        DrawX(destinationTextField);
+        sourceTextField.textProperty().addListener(((ov, oldVal, newVal) -> {
+        DrawX(sourceTextField, destinationTextField);
+        }));
+        destinationTextField.textProperty().addListener(((ov, oldVal, newVal) -> {
+                    DrawX(destinationTextField, sourceTextField);
+                }));
 
         algorithmType.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
         sourceButton.setOnAction(event -> {
@@ -162,13 +156,16 @@ public class MainController {
 
     }
 
-    private void DrawX(TextField destinationTextField) {
-        destinationTextField.textProperty().addListener(((ov, oldVal, newVal) -> {
-            mainView.setImage(map);
-            String[] startCoords = destinationTextField.getText().split(",");
-            mainView.setImage(Utilities.drawX(mainView.getImage(),Integer.parseInt(startCoords[0].trim()),Integer.parseInt(startCoords[1].trim()), Color.ORANGE));
+    private void DrawX(TextField sourceTextField, TextField destinationTextField) {
 
-        }));
+            mainView.setImage(map);
+            String[] startCoords = sourceTextField.getText().split(",");
+            if(startCoords.length==2)
+            mainView.setImage(Utilities.drawX(mainView.getImage(),Integer.parseInt(startCoords[0].trim()),Integer.parseInt(startCoords[1].trim()), Color.BLUE));
+            startCoords = destinationTextField.getText().split(",");
+            if(startCoords.length==2)
+            mainView.setImage(Utilities.drawX(mainView.getImage(),Integer.parseInt(startCoords[0].trim()),Integer.parseInt(startCoords[1].trim()), Color.RED));
+
     }
 
 
@@ -208,7 +205,7 @@ public class MainController {
             if(algorithmType.getValue().equals("Dijkstra's Algorithm")) {
                 List<CoolNode<Room>> route;
                 if(waypoints.getSelectionModel().getSelectedItem()==null) {
-                    route = Objects.requireNonNull(findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents())).getList();
+                    route =findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents()).getList();
                 }else{
                     route = findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(waypoints.getSelectionModel().getSelectedItem()).getContents()).getList();
                     List<CoolNode<Room>> temp = findCheapestPathDijkstra(getRoom(waypoints.getSelectionModel().getSelectedItem()), getRoom(destination.getValue()).getContents()).getList();
@@ -220,11 +217,13 @@ public class MainController {
 
                 List<Integer> route = findPathBreadthFirst(Integer.parseInt(startCoords[1].trim())*width+Integer.parseInt(startCoords[0].trim()),
                         Integer.parseInt(endCoords[1].trim())*width+Integer.parseInt(endCoords[0].trim()));
+                DrawX(sourceTextField,destinationTextField);
                for(int i: route){
                    WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
-                   wr.getPixelWriter().setColor(i%width,i/width,Color.RED);
+                   wr.getPixelWriter().setColor(i%width,i/width,Color.PURPLE);
                    mainView.setImage(wr);
                }
+
             }
 
 
@@ -319,6 +318,7 @@ public class MainController {
         firstAgendaPath.add(startNode);
         agenda.add(firstAgendaPath);
         resultPath=findPathBreadthFirst(agenda,null,lookingfor); //Get single BFS path (will be shortest)
+        if(resultPath!=null)
         Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
         return resultPath;
     }
@@ -372,7 +372,7 @@ public class MainController {
                     boolean foundPrevPathNode=false; //Use a flag to identify when the previous path node is identified
                     for(CoolNode<Room> n : encountered) { //For each node in the encountered list...
                         for(CoolNode<Room> e : n.getAttachedNodes()){ //For each edge from that node...
-                            if(e.equals(currentNode) && Math.abs(currentNode.getNodeValue()-(Utilities.distance(
+                            if(e.equals(currentNode) && Math.abs(currentNode.getNodeValue()-((int) Utilities.distance(
                                     n.getContents().getPixelX(),n.getContents().getPixelY(),e.getContents().getPixelX(),
                                     e.getContents().getPixelY())))==n.getNodeValue()){ //If that edge links to the
 //current node and the difference in node values is the cost of the edge -> found path node!
@@ -393,8 +393,9 @@ public class MainController {
             }
 //We're not at the goal node yet, so...
             for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
-                if(!encountered.contains(e)&&!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
-                    e.setNodeValue(Integer.min(e.getNodeValue(), (currentNode.getNodeValue()+Utilities.distance
+                if(exclusions.getSelectionModel().isEmpty()&&!encountered.contains(e)
+                        ||!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
+                    e.setNodeValue(Integer.min(e.getNodeValue(), (int)(currentNode.getNodeValue()+Utilities.distance
                                                 (currentNode.getContents().getPixelX(),currentNode.getContents().getPixelY(),
                                                         e.getContents().getPixelX(),e.getContents().getPixelY()))));//Update the node value at the end
 //of the edge to the minimum of its current value or the total of the current node's value plus the cost of the edge
@@ -458,9 +459,9 @@ public class MainController {
         sourceButton.setDisable(false);
         sourceButton.setDisable(false);
 
-        if (currentTextField.equals(sourceTextField)){
+        if (sourceTextField.equals(currentTextField)){
             sourceTextField.setText(pixelX + " , " + pixelY);
-        } else if(currentTextField.equals(destinationTextField)){
+        } else if(destinationTextField.equals(currentTextField)){
             destinationTextField.setText(pixelX + " , " + pixelY);
         }
         currentTextField = null;
@@ -471,6 +472,7 @@ public class MainController {
     public void populateTextFields() {
 
         if (Objects.equals(algorithmType.getValue(), "Breadth First Search Algorithm")) {
+            leftPane.setDisable(false);
             source.valueProperty().addListener(e -> {
                 if (source.getValue() != null) {
                     int pixelX, pixelY;
@@ -501,7 +503,7 @@ public class MainController {
             });
 
 
-        }
+        }else leftPane.setDisable(true);
     }
 
    

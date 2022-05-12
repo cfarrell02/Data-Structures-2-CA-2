@@ -98,6 +98,7 @@
                         <Label layoutX="20.0" layoutY="48.0" text="Source Pixel" />
                         <Label layoutX="169.0" layoutY="88.0" text="To" />
                         <Label layoutX="7.0" layoutY="126.0" text="Destination Pixel" />
+                        <Label layoutX="117.0" layoutY="6.0" text="BFS Pixel Search Settings" />
                      </children>
                   </AnchorPane>
                   <ChoiceBox fx:id="algorithmType" layoutX="493.0" layoutY="72.0" prefHeight="25.0" prefWidth="116.0" />
