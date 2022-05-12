@@ -28,7 +28,7 @@ class CoolNode<N>{
 
     public void disconnectNodeUnDirected(CoolNode<N> destNode){
         attachedNodes.remove(destNode);
-        destNode.attachedNodes.remove(destNode);
+        destNode.attachedNodes.remove(this);
     }
 
     public List<CoolNode<N>> getAttachedNodes() {
