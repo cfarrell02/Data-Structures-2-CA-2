@@ -12,25 +12,6 @@ public class Room {
         this.pixelY = pixelY;
     }
 
-  //  public void connectToNodeDirected(Room destNode) {
- //       attachedRooms.add(destNode);
- //   }
-//    public void connectToNodeUndirected(Room destNode) {
-//        if(!attachedRooms.contains(destNode))
-//        attachedRooms.add(destNode);
-//        if(!destNode.attachedRooms.contains(this))
-//        destNode.getAttachedRooms().add(this);
-//    }
-//
-//    public void disconnectNodeDirected(Room destNode){
-//        attachedRooms.remove(destNode);
-//    }
-//
-//    public void disconnectNodeUnDirected(Room destNode){
-//        attachedRooms.remove(destNode);
-//        destNode.attachedRooms.remove(destNode);
-//    }
-
     public String getName() {
         return name;
     }
