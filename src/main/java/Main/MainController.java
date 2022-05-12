@@ -35,15 +35,14 @@ public class MainController {
     TextField sourceTextField, destinationTextField;
     @FXML
     Button sourceButton, destinationButton;
-    public Map<Integer,CoolNode<Pixel>> pixels;
     int [] blackAndWhiteArray;
-    public Map<Integer,CoolNode<Room>> rooms;
-    public List<List<CoolNode<Room>>> paths;
+    private Map<Integer,CoolNode<Room>> rooms;
+    private List<List<CoolNode<Room>>> paths;
     @FXML
     public AnchorPane leftPane, rightPane;
     //public List<CoolNode<Room>> route;
 
-    TextField currentTextField = null;
+    private TextField currentTextField = null;
 
 
 
@@ -53,7 +52,7 @@ public class MainController {
         blackAndWhite = new Image(new FileInputStream("src/main/resources/main/blackandwhite.png"));
         blackAndWhiteArray = new int[(int) (blackAndWhite.getWidth()*blackAndWhite.getHeight())];
         mainView.setImage(map);
-        pixels = new HashMap<>();
+        Map<Integer, CoolNode<Pixel>> pixels = new HashMap<>();
         rooms = new HashMap<>();
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
@@ -107,11 +106,13 @@ public class MainController {
         source.valueProperty().addListener(e -> {
             destination.getItems().clear();
             waypoints.getItems().clear();
+            exclusions.getItems().clear();
             Room sourceRoom = getRoom(source.getValue()).getContents();
             for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()) {
                 if (!sourceRoom.equals(room)) {
                     destination.getItems().add(room.getValue().getContents().getName());
                     waypoints.getItems().add(room.getValue().getContents().getName());
+                    exclusions.getItems().add(room.getValue().getContents().getName());
                 }
             }
         });
@@ -131,8 +132,7 @@ public class MainController {
             drawRoute(route);
         });
         quickest.selectedProperty().addListener(e->{
-            if(quickest.isSelected()) algorithmType.setDisable(false);
-            else algorithmType.setDisable(true);
+            algorithmType.setDisable(!quickest.isSelected());
         });
 
 //        mainView.setOnMouseMoved(e -> {
@@ -146,11 +146,30 @@ public class MainController {
 //            mainView.setImage(wr);
 //        });
 
-       source.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
-       destination.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
+        DrawX(sourceTextField);
+
+        DrawX(destinationTextField);
+
+        algorithmType.valueProperty().addListener(((ov, oldValue, newValue) -> populateTextFields()));
+        sourceButton.setOnAction(event -> {
+            currentTextField = sourceTextField;
+            sourceButton.setDisable(true);
+        });
+        destinationButton.setOnAction(event -> {
+            currentTextField = destinationTextField;
+            sourceButton.setDisable(true);
+        });
 
     }
 
+    private void DrawX(TextField destinationTextField) {
+        destinationTextField.textProperty().addListener(((ov, oldVal, newVal) -> {
+            mainView.setImage(map);
+            String[] startCoords = destinationTextField.getText().split(",");
+            mainView.setImage(Utilities.drawX(mainView.getImage(),Integer.parseInt(startCoords[0].trim()),Integer.parseInt(startCoords[1].trim()), Color.ORANGE));
+
+        }));
+    }
 
 
     @FXML
@@ -167,6 +186,13 @@ public class MainController {
                     }
                 }
                 paths = temp;
+                temp.clear();
+            }if(!exclusions.getSelectionModel().isEmpty()){
+                for (List<CoolNode<Room>> path : paths)
+                    if (!path.contains(getRoom(exclusions.getSelectionModel().getSelectedItem()))) {
+                        temp.add(path);
+                    }
+                paths = temp;
             }
             paths.sort(Comparator.comparing(List::size));
             int limit = (int) routeLimit.getValue();
@@ -175,16 +201,25 @@ public class MainController {
             for (int i = 0; i < paths.size(); ++i) {
                 mainList.getItems().add("Route: " + (i + 1));
             }
-        }else{
+        }else if(quickest.isSelected()){
             mainList.getItems().clear();
             int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
 //            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
             if(algorithmType.getValue().equals("Dijkstra's Algorithm")) {
-                List<CoolNode<Room>> route = findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents()).getList();
+                List<CoolNode<Room>> route;
+                if(waypoints.getSelectionModel().getSelectedItem()==null) {
+                    route = Objects.requireNonNull(findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents())).getList();
+                }else{
+                    route = findCheapestPathDijkstra(getRoom(source.getValue()), getRoom(waypoints.getSelectionModel().getSelectedItem()).getContents()).getList();
+                    List<CoolNode<Room>> temp = findCheapestPathDijkstra(getRoom(waypoints.getSelectionModel().getSelectedItem()), getRoom(destination.getValue()).getContents()).getList();
+                    route.addAll(temp.subList(1,temp.size()));
+                }
                 drawRoute(route);
             }else{
-                List<Integer> route = findPathBreadthFirst(getRoom(source.getValue()).getContents().getPixelY()*width+getRoom(source.getValue()).getContents().getPixelX(),
-                        getRoom(destination.getValue()).getContents().getPixelY()*width+getRoom(destination.getValue()).getContents().getPixelX());
+                String[] startCoords = sourceTextField.getText().split(","),endCoords =  destinationTextField.getText().split(",");
+
+                List<Integer> route = findPathBreadthFirst(Integer.parseInt(startCoords[1].trim())*width+Integer.parseInt(startCoords[0].trim()),
+                        Integer.parseInt(endCoords[1].trim())*width+Integer.parseInt(endCoords[0].trim()));
                for(int i: route){
                    WritableImage wr = new WritableImage(mainView.getImage().getPixelReader(),width,height);
                    wr.getPixelWriter().setColor(i%width,i/width,Color.RED);
@@ -194,7 +229,22 @@ public class MainController {
 
 
 
-        }
+        }/*else{
+            mainList.getItems().clear();
+            int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
+//            Room sourceRoom = getRoom(source.getValue()).getContents(), destinationRoom = getRoom(destination.getValue()).getContents();
+
+                List<CoolNode<Room>> route;
+                if(waypoints.getSelectionModel().getSelectedItem()==null) {
+                    route = Objects.requireNonNull(findScenicPathDijkstra(getRoom(source.getValue()), getRoom(destination.getValue()).getContents())).getList();
+                }else{
+                    route = findScenicPathDijkstra(getRoom(source.getValue()), getRoom(waypoints.getSelectionModel().getSelectedItem()).getContents()).getList();
+                    List<CoolNode<Room>> temp = findScenicPathDijkstra(getRoom(waypoints.getSelectionModel().getSelectedItem()), getRoom(destination.getValue()).getContents()).getList();
+                    route.addAll(temp.subList(1,temp.size()));
+
+                drawRoute(route);
+                }
+        }*/
 
     }
 
@@ -251,13 +301,7 @@ public class MainController {
     }
 
 
-//    public CoolNode<Room> getRoom(int ID){
-//        for(CoolNode<Room> room:rooms){
-//            if(room.getContents().getID() == ID)
-//                return room;
-//        }
-//        return null;
-//    }
+
 
     public CoolNode<Room> getRoom(String name){
         for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
@@ -311,7 +355,7 @@ public class MainController {
         return findPathBreadthFirst(agenda,encountered,lookingfor); //Tail call
     }
 
-    public static  CostedPath findCheapestPathDijkstra(CoolNode<Room> startNode, Room lookingfor){
+    public CostedPath findCheapestPathDijkstra(CoolNode<Room> startNode, Room lookingfor){
 
         CostedPath cp=new CostedPath(); //Create result object for cheapest path
         List<CoolNode<Room>> encountered=new ArrayList<>(), unencountered=new ArrayList<>(); //Create encountered/unencountered lists
@@ -349,7 +393,7 @@ public class MainController {
             }
 //We're not at the goal node yet, so...
             for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
-                if(!encountered.contains(e)) { //If the node it leads to has not yet been encountered (i.e. processed)
+                if(!encountered.contains(e)&&!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
                     e.setNodeValue(Integer.min(e.getNodeValue(), (currentNode.getNodeValue()+Utilities.distance
                                                 (currentNode.getContents().getPixelX(),currentNode.getContents().getPixelY(),
                                                         e.getContents().getPixelX(),e.getContents().getPixelY()))));//Update the node value at the end
@@ -361,22 +405,63 @@ public class MainController {
         return null; //No path found, so return null
     }
 
+    /*public CostedPath findScenicPathDijkstra(CoolNode<Room> startNode, Room lookingfor){
+
+        CostedPath cp=new CostedPath(); //Create result object for cheapest path
+        List<CoolNode<Room>> encountered=new ArrayList<>(), unencountered=new ArrayList<>(); //Create encountered/unencountered lists
+        startNode.setNodeValue(0); //Set the starting node value to zero
+        unencountered.add(startNode); //Add the start node as the only value in the unencountered list to start
+        CoolNode<Room> currentNode;
+        do{ //Loop until unencountered list is empty
+            currentNode=unencountered.remove(0); //Get the first unencountered node (sorted list, so will have lowest value)
+            encountered.add(currentNode); //Record current node in encountered list
+            if(currentNode.getContents().equals(lookingfor)){ //Found goal - assemble path list back to start and return it
+                cp.getList().add(currentNode); //Add the current (goal) node to the result list (only element)
+                cp.setCost(currentNode.getNodeValue()); //The total cheapest path cost is the node value of the current/goal node
+                while(currentNode!=startNode) { //While we're not back to the start node...
+                    boolean foundPrevPathNode=false; //Use a flag to identify when the previous path node is identified
+                    for(CoolNode<Room> n : encountered) { //For each node in the encountered list...
+                        for(CoolNode<Room> e : n.getAttachedNodes()){ //For each edge from that node...
+                            if(e.equals(currentNode) && Math.abs(currentNode.getNodeValue()+e.getContents().getDetails().length())==n.getNodeValue()){ //If that edge links to the
+//current node and the difference in node values is the cost of the edge -> found path node!
+
+                                cp.getList().add(0,n); //Add the identified path node to the front of the result list
+                                currentNode=n; //Move the currentNode reference back to the identified path node
+                                foundPrevPathNode=true; //Set the flag to break the outer loop
+                                break; //We've found the correct previous path node and moved the currentNode reference
+//back to it so break the inner loop
+                            }}
+                        if(foundPrevPathNode) break; //We've identified the previous path node, so break the inner loop to continue
+                    }
+                }
+//Reset the node values for all nodes to (effectively) infinity so we can search again (leave no footprint!)
+                for(CoolNode<Room> n : encountered) n.setNodeValue(Integer.MAX_VALUE);
+                for(CoolNode<Room> n : unencountered) n.setNodeValue(Integer.MAX_VALUE);
+                return cp; //The costed (cheapest) path has been assembled, so return it!
+            }
+//We're not at the goal node yet, so...
+            for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
+                if(!encountered.contains(e)&&!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
+                    e.setNodeValue(Integer.min(e.getNodeValue(), (currentNode.getNodeValue()-e.getContents().getDetails().length())));//Update the node value at the end
+//of the edge to the minimum of its current value or the total of the current node's value plus the cost of the edge
+                    unencountered.add(e);
+                }
+            unencountered.sort(Comparator.comparingInt(CoolNode::getNodeValue)); //Sort in ascending node value order
+        }while(!unencountered.isEmpty());
+        return null; //No path found, so return null
+    }
+*/
     public void selectPixel(MouseEvent e){
         int pixelX, pixelY;
-        pixelX = (int) e.getX();
-        pixelY = (int) e.getY();
+        pixelX = (int) e.getX() * 244/161;
+        pixelY = (int) e.getY() * 265/177;
+        sourceButton.setDisable(false);
+        sourceButton.setDisable(false);
 
-        sourceButton.setOnAction(event -> {
-            currentTextField = sourceTextField;
-        });
-        destinationButton.setOnAction(event -> {
-            currentTextField = destinationTextField;
-        });
-
-        if (currentTextField == sourceTextField){
-            sourceTextField.setText("X = " + pixelX + " Y = " + pixelY);
-        } else if(currentTextField == destinationTextField){
-            destinationTextField.setText("X = " + pixelX + " Y = " + pixelY);
+        if (currentTextField.equals(sourceTextField)){
+            sourceTextField.setText(pixelX + " , " + pixelY);
+        } else if(currentTextField.equals(destinationTextField)){
+            destinationTextField.setText(pixelX + " , " + pixelY);
         }
         currentTextField = null;
     }
@@ -385,7 +470,7 @@ public class MainController {
 
     public void populateTextFields() {
 
-        if (algorithmType.getValue() == "Breadth First Search Algorithm") {
+        if (Objects.equals(algorithmType.getValue(), "Breadth First Search Algorithm")) {
             source.valueProperty().addListener(e -> {
                 if (source.getValue() != null) {
                     int pixelX, pixelY;
@@ -397,7 +482,7 @@ public class MainController {
                     pixelY = room.getContents().getPixelY();
                     // System.out.println("X = " + pixelX + " Y = " + pixelY);
 
-                    sourceTextField.setText("X = " + pixelX + " Y = " + pixelY);
+                    sourceTextField.setText(pixelX + " , " + pixelY);
                 }
             });
 
@@ -411,7 +496,7 @@ public class MainController {
                     pixelX = room.getContents().getPixelX();
                     pixelY = room.getContents().getPixelY();
 
-                    destinationTextField.setText("X = " + pixelX + " Y = " + pixelY);
+                    destinationTextField.setText(pixelX + " , " + pixelY);
                 } else destinationTextField.clear();
             });
 
