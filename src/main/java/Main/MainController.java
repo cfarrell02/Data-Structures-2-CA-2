@@ -76,7 +76,7 @@ public class MainController {
 
         for(Map.Entry<Integer,CoolNode<Room>> room:rooms.entrySet()){
             source.getItems().add(room.getValue().getContents().getName());
-        }
+        }//adds all rooms to source box
 
 
         int width = (int) blackAndWhite.getWidth(), height = (int) blackAndWhite.getHeight();
@@ -87,7 +87,7 @@ public class MainController {
                 }
                 else
                     blackAndWhiteArray[y*width+x] = 0;
-            }
+            } //makes black and white array
         }
 
 
@@ -178,7 +178,7 @@ public class MainController {
         mainView.setImage(map);
         mainList.getItems().clear();
         if(multiple.isSelected()) {
-            paths = findAllPathsDepthFirst(getRoom(source.getValue()), null, getRoom(destination.getValue()));
+            paths = findAllPathsDepthFirst(getRoom(source.getValue()), null, getRoom(destination.getValue())); //does dept first if multiple
             List<List<CoolNode<Room>>> temp = new ArrayList<>();
             if(!waypoints.getSelectionModel().isEmpty()) {
                 for (List<CoolNode<Room>> path : paths) {
@@ -195,7 +195,7 @@ public class MainController {
                     }
                 paths = temp;
             }
-            paths.sort(Comparator.comparing(List::size));
+            paths.sort(Comparator.comparing(List::size)); //sorts by size
             int limit = (int) routeLimit.getValue();
             if (paths.size() > limit)
                 paths = paths.subList(0, limit);
@@ -268,7 +268,7 @@ public class MainController {
             mainView.setImage(Utilities.drawLine(mainView.getImage(),prev.getPixelX(),prev.getPixelY(),current.getPixelX(),current.getPixelY(),Color.BLUE));
             routeDetails.getItems().add(i+": "+current.getName());
         }
-    }
+    } // uses utilities to draw line between points
 
     public int routeLength(List<CoolNode<Room>> route){
         int distance = 0;
@@ -460,7 +460,7 @@ public class MainController {
 */
     public void selectPixel(MouseEvent e){
         int pixelX, pixelY;
-        pixelX = (int) e.getX() * 244/161;
+        pixelX = (int) e.getX() * 244/161; // corrects offset no idea why  something to do with imageview
         pixelY = (int) e.getY() * 265/177;
         sourceButton.setDisable(false);
         sourceButton.setDisable(false);
