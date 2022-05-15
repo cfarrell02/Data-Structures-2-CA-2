@@ -60,7 +60,7 @@ public class MainController {
         algorithmType.getItems().add("Dijkstra's Algorithm");
         algorithmType.getItems().add("Breadth First Search Algorithm");
         algorithmType.setValue("Dijkstra's Algorithm");
-        directions = new int[]{1, -1, (int) map.getWidth(), -((int) map.getWidth())};
+        directions = new int[]{1, -1, (int) map.getWidth(), -((int) map.getWidth())}; //array to get differnt next to pixels
         try{
         XStream xstream = new XStream(new DomDriver());
         xstream.addPermission(AnyTypePermission.ANY);
