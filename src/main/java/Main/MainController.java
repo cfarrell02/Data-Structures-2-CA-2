@@ -400,7 +400,7 @@ public class MainController {
 //We're not at the goal node yet, so...
             for(CoolNode<Room> e : currentNode.getAttachedNodes()) //For each edge/link from the current node...
                 if(exclusions.getSelectionModel().isEmpty()&&!encountered.contains(e)
-                        ||!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
+                        ||!encountered.contains(e)&&!exclusions.getSelectionModel().isEmpty()&&!exclusions.getSelectionModel().getSelectedItem().equals(e.getContents().getName())) { //If the node it leads to has not yet been encountered (i.e. processed)
                     e.setNodeValue(Integer.min(e.getNodeValue(), (int)(currentNode.getNodeValue()+Utilities.distance
                                                 (currentNode.getContents().getPixelX(),currentNode.getContents().getPixelY(),
                                                         e.getContents().getPixelX(),e.getContents().getPixelY()))));//Update the node value at the end
