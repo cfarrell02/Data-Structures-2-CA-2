@@ -6,12 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Data-Structures-2-CA-2" />
+        <module name="Navigation-Application" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Data-Structures-2-CA-2" target="15" />
-      <module name="Navigation-Application" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
